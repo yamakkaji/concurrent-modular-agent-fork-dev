@@ -1,0 +1,9 @@
+services:
+  mqtt:
+      image: eclipse-mosquitto
+      container_name: mqtt_test
+
+  chromadb:
+      image:  chromadb/chroma
+      container_name: chromadb_test
+      
