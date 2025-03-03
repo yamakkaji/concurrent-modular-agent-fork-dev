@@ -1,6 +1,5 @@
 from os import path as osp
 from paho.mqtt import client as mqtt
-import concurrent_modular_agent as cma
 import queue
 
 class MessageClient():
@@ -21,7 +20,7 @@ class MessageClient():
         self.mqtt_client.loop_start()
 
     def _make_mqtt_topic(self, module_name):
-        return f"{cma.__name__}/{osp.splitext(osp.basename(__file__))[0]}/{self.agent_name}/{module_name}"
+        return f"{__package__}/{osp.splitext(osp.basename(__file__))[0]}/{self.agent_name}/{module_name}"
 
     def send(self, receiver_name, message):
         target_mqtt_topic = self._make_mqtt_topic(receiver_name)

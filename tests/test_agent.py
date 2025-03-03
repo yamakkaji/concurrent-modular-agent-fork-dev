@@ -27,3 +27,20 @@ def test_agent_message():
     agent.start(detach=False)
     assert received_message.get() == send_message
 
+def test_agent_state():
+    def state_add(state, message):
+        state.add("test")
+        message.send("state_retrieve", "please read state.")
+    
+    testq = Queue()
+    def state_retrieve(state, message):
+        message.receive()
+        s = state.retrieve("test")
+        testq.put(s[0].text)
+        
+    agent = Agent('myagent')
+    agent.add_module("state_retrieve", state_retrieve)
+    agent.add_module("state_add", state_add)
+    agent.start(detach=False)
+    assert testq.get() == "test"
+    
