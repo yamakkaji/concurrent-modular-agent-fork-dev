@@ -1,5 +1,7 @@
-This is concurrent modular agent framework.
+# Concurrent Modular Agent
 
+This is a framework for concurrent modular agent. 
+<img width="1317" alt="CMA_architecture" src="https://github.com/user-attachments/assets/c6491062-554d-4a89-a468-ae0b561075cf" />
 
 ## Setup
 Install docker
@@ -35,10 +37,11 @@ $ export OPENAI_API_KEY="your api key"
 $ pytest
 ```
 
-
-
 ## Start backend services
-Run `python -m concurrent_modular_agent.backend start`
+Run
+```console 
+$ python -m concurrent_modular_agent.backend start
+```
 
 
 ## Examples
