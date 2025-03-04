@@ -2,6 +2,11 @@ This is concurrent modular agent framework.
 
 
 ## Setup
+Install docker
+https://docs.docker.com/engine/install/
+
+
+
 It is recommended to use a virtual environment
 ```console
 $ python3 -m venv .venv
@@ -25,7 +30,7 @@ $ export OPENAI_API_KEY="your api key"
 ```
 
 ## Start backend services
-Run `python -m concurrent_module_agent.backend start`
+Run `python -m concurrent_modular_agent.backend start`
 
 
 ## Examples
