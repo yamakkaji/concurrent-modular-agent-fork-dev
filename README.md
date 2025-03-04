@@ -14,6 +14,11 @@ $ pip install -r requirements.txt
 $ pip install -e .
 ```
 
+Test
+```console
+$ pytest
+```
+
 Set the OpenAI API Key
 ```console
 $ export OPENAI_API_KEY="your api key"
