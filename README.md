@@ -36,6 +36,7 @@ $ pytest
 ```
 
 ## Start backend services
+Run
 ```console 
 $ python -m concurrent_modular_agent.backend start
 ```
