@@ -35,10 +35,10 @@ $ export OPENAI_API_KEY="your api key"
 $ pytest
 ```
 
-
-
 ## Start backend services
-Run `python -m concurrent_modular_agent.backend start`
+```console 
+$ python -m concurrent_modular_agent.backend start
+```
 
 
 ## Examples
