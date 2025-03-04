@@ -19,7 +19,11 @@ $ pip install -r requirements.txt
 $ pip install -e .
 ```
 
-Test
+#### Test
+1. Start backend services. 
+Run `python -m concurrent_modular_agent.backend start`
+
+2. Run test.
 ```console
 $ pytest
 ```
