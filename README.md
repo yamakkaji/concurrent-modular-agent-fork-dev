@@ -1,6 +1,6 @@
 # Concurrent Modular Agent
+<img width="1292" alt="CMA Notes (3)" src="https://github.com/user-attachments/assets/f5b0de92-1436-4ddd-ae13-d64fcb247171" />
 
-<img width="1215" alt="cma_intergace" src="https://github.com/user-attachments/assets/dbf06ce9-afd1-46bc-8dc9-80308fe029c6" />
 
 ## Setup
 Install docker
