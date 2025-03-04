@@ -9,7 +9,7 @@ https://docs.docker.com/engine/install/
 
 It is recommended to use a virtual environment
 ```console
-$ python3 -m venv .venv
+$ python -m venv .venv
 $ source .venv/bin/activate
 ```
 
@@ -19,7 +19,13 @@ $ pip install -r requirements.txt
 $ pip install -e .
 ```
 
-Test
+#### Test
+1. Start backend services.
+```console
+$ python -m concurrent_modular_agent.backend start
+```
+
+2. Run test.
 ```console
 $ pytest
 ```
