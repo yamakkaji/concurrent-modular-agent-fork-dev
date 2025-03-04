@@ -1,5 +1,5 @@
 aioice==0.9.0
-aiortc==1.9.0
+#aiortc==1.9.0
 alabaster==1.0.0
 altair==5.5.0
 amqp==5.3.1
@@ -8,7 +8,7 @@ anyio==4.7.0
 asgiref==3.8.1
 asttokens==3.0.0
 attrs==24.3.0
-av==12.3.0
+#av==12.3.0
 babel==2.16.0
 backoff==2.2.1
 bcrypt==4.2.1
