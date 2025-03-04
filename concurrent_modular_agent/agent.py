@@ -11,6 +11,7 @@ class Agent():
         self.name = name
         self.modules = {}
         self.messaging_clients = {}
+        self.state = StateClient(self.name)
 
     def add_module(self, module_name: str, module_function: callable):
         self.modules[module_name] = module_function

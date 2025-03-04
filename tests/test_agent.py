@@ -43,4 +43,16 @@ def test_agent_state():
     agent.add_module("state_add", state_add)
     agent.start(detach=False)
     assert testq.get() == "test"
-    
+
+def test_aget_state_clear():
+    def state_add(state, message):
+        state.add("test")
+        
+    agent = Agent('test_aget_state_clear')
+    agent.state.clear()
+    assert agent.state.count() == 0
+    agent.add_module("state_add", state_add)
+    agent.start(detach=False)
+    assert agent.state.count() != 0
+    agent.state.clear()
+    assert agent.state.count() == 0
