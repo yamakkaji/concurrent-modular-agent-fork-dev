@@ -9,7 +9,7 @@ https://docs.docker.com/engine/install/
 
 It is recommended to use a virtual environment
 ```console
-$ python3 -m venv .venv
+$ python -m venv .venv
 $ source .venv/bin/activate
 ```
 
