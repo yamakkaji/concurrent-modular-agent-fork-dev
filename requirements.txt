@@ -3,3 +3,7 @@ loguru==0.7.3
 numpy==2.2.3
 paho_mqtt==2.1.0
 pytest==8.3.4
+<<<<<<< HEAD
+=======
+openai
+>>>>>>> main
