@@ -1,3 +1,8 @@
+import multiprocessing
+import platform
+if platform.system() == 'Darwin':
+    multiprocessing.set_start_method('fork')
+
 from concurrent_modular_agent import Agent
 from multiprocessing import Queue
 
