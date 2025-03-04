@@ -1,5 +1,4 @@
 from concurrent_modular_agent import MessageClient
-import pytest
 
 
 def test_send_receive():
