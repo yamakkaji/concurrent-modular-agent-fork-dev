@@ -16,7 +16,7 @@ $ pip install -e .
 
 Test
 ```console
-$ putest
+$ pytest
 ```
 
 Set the OpenAI API Key
