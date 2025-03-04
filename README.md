@@ -25,15 +25,17 @@ $ pip install -e .
 $ python -m concurrent_modular_agent.backend start
 ```
 
-2. Run test.
+2. Set the OpenAI API Key
+```console
+$ export OPENAI_API_KEY="your api key"
+```
+
+3. Run test.
 ```console
 $ pytest
 ```
 
-Set the OpenAI API Key
-```console
-$ export OPENAI_API_KEY="your api key"
-```
+
 
 ## Start backend services
 Run `python -m concurrent_modular_agent.backend start`
