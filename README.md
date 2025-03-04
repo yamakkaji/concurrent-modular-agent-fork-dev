@@ -20,8 +20,10 @@ $ pip install -e .
 ```
 
 #### Test
-1. Start backend services. 
-Run `python -m concurrent_modular_agent.backend start`
+1. Start backend services.
+```console
+$ python -m concurrent_modular_agent.backend start
+```
 
 2. Run test.
 ```console
