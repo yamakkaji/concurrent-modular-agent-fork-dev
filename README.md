@@ -1,7 +1,5 @@
 # Concurrent Modular Agent
-
-This is a framework for concurrent modular agent. 
-<img width="1317" alt="CMA_architecture" src="https://github.com/user-attachments/assets/c6491062-554d-4a89-a468-ae0b561075cf" />
+<img width="1292" alt="cma_architecture" src="https://github.com/user-attachments/assets/07ba751e-64a9-4e34-805c-0c0ce8ef8512" />
 
 ## Setup
 Install docker
