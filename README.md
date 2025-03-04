@@ -2,6 +2,11 @@ This is concurrent modular agent framework.
 
 
 ## Setup
+Install docker
+https://docs.docker.com/engine/install/
+
+
+
 It is recommended to use a virtual environment
 ```console
 $ python3 -m venv .venv
