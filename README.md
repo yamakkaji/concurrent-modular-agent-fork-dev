@@ -43,5 +43,4 @@ $ python -m concurrent_modular_agent.backend start
 
 
 ## Examples
-
-Please check tests directory.
+Examples of modules and agents are provided in `./examples`
