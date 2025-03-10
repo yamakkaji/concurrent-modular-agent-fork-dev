@@ -25,7 +25,7 @@ def test_state_3():
     state.add("hell world")
     state.add("hogehoge")
     assert state.count() == 3
-    s = state.retrieve("agent", max_count=1)
+    s = state.query("agent", max_count=1)
     assert len(s)== 1
     assert s[0].text == "concurrent modular agent."
     

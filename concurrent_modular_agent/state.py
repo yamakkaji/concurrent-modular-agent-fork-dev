@@ -4,7 +4,7 @@ from loguru import logger
 import chromadb
 import chromadb.utils.embedding_functions as embedding_functions
 from dataclasses import dataclass
-
+import warnings
 
 
 @dataclass
@@ -88,10 +88,13 @@ class StateClient():
             timestamps=timestamps
         )
         return state
-        
+    
     def retrieve(self, query_text:str, max_count:int=10):
+        warnings.warn("The 'retrieve' method is deprecated, use 'query' method instead.", DeprecationWarning)
+        return self.query(query_text=query_text, max_count=max_count)
+    
+    def query(self, query_text:str, max_count:int=10):
         data = self._chromadb_collection.query(query_texts=query_text, n_results=max_count, include=['embeddings', 'documents', 'metadatas'])
-        # import ipdb; ipdb.set_trace()
         ids = np.array(data['ids'])[0]
         texts = np.array(data['documents'])[0]
         vector = np.array(data['embeddings'])[0]
