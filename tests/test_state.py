@@ -56,3 +56,5 @@ def test_state_6():
     state.add(new_states)
     s = state.latest(max_count=-1)
     assert len(s) == 100
+    s = state.latest(max_count=None)
+    assert len(s) == 100

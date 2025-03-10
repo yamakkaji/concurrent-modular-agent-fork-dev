@@ -75,7 +75,7 @@ class StateClient():
         data = self._chromadb_collection.get(include=['embeddings', 'documents', 'metadatas'])
         timestamp = [m['timestamp'] for m in data['metadatas']]
         index = np.argsort(timestamp)[::-1]
-        if max_count > 0:
+        if max_count is not None and max_count > 0:
             index = index[:max_count]
         ids = np.array(data['ids'])[index]
         texts = np.array(data['documents'])[index]
