@@ -73,8 +73,10 @@ class StateClient():
     
     def latest(self, max_count:int=10):
         data = self._chromadb_collection.get(include=['embeddings', 'documents', 'metadatas'])
-        timestampe = [m['timestamp'] for m in data['metadatas']]
-        index = np.argsort(timestampe)[::-1][:max_count]
+        timestamp = [m['timestamp'] for m in data['metadatas']]
+        index = np.argsort(timestamp)[::-1]
+        if max_count > 0:
+            index = index[:max_count]
         ids = np.array(data['ids'])[index]
         texts = np.array(data['documents'])[index]
         vector = np.array(data['embeddings'])[index]

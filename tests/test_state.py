@@ -32,10 +32,10 @@ def test_state_3():
 def test_state_4():
     state = StateClient("agent")
     state.clear()
-    s = []
+    new_states = []
     for i in range(100):
-        s.append(f"state {i}")
-    state.add(s)
+        new_states.append(f"state {i}")
+    state.add(new_states)
     state.add('state new')
     assert state.count() == 101
     s = state.latest(max_count=1)
@@ -46,3 +46,13 @@ def test_state_5():
     state.clear()
     s = state.latest()
     assert len(s) == 0
+
+def test_state_6():
+    state = StateClient("agent")
+    state.clear()
+    new_states = []
+    for i in range(100):
+        new_states.append(f"state {i}")
+    state.add(new_states)
+    s = state.latest(max_count=-1)
+    assert len(s) == 100
