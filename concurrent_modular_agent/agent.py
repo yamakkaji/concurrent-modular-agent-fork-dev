@@ -34,8 +34,9 @@ class Agent():
                 target=self._run_module_process, 
                 args=(self.name, module_name, module_func, initialized_bariier))
             
-            module_processes.append(process)
+            process.daemon = True
             process.start()
+            module_processes.append(process)
             
         if not detach:
             for process in module_processes:

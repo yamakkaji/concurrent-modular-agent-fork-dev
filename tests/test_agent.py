@@ -35,7 +35,7 @@ def test_agent_state():
     testq = Queue()
     def state_retrieve(state, message):
         message.receive()
-        s = state.retrieve("test")
+        s = state.query("test")
         testq.put(s[0].text)
         
     agent = Agent('test_agent_state')
