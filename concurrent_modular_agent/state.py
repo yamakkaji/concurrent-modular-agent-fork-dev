@@ -93,20 +93,27 @@ class StateClient():
         warnings.warn("The 'retrieve' method is deprecated, use 'query' method instead.", DeprecationWarning)
         return self.query(query_text=query_text, max_count=max_count)
     
-    def query(self, query_text:str, max_count:int=10):
-        data = self._chromadb_collection.query(query_texts=query_text, n_results=max_count, include=['embeddings', 'documents', 'metadatas'])
+    def query(self, query_text:str, max_count:int=10, return_distances:bool=False):
+        query_include = ['embeddings', 'documents', 'metadatas']
+        if return_distances:
+            query_include.append('distances')
+        data = self._chromadb_collection.query(query_texts=query_text, 
+                                               n_results=max_count, 
+                                               include=query_include)
         ids = np.array(data['ids'])[0]
         texts = np.array(data['documents'])[0]
         vector = np.array(data['embeddings'])[0]
         timestamps = np.array([m['timestamp'] for m in data['metadatas'][0]])
-        
         state = State(
             ids=ids,
             texts=texts,
             vector=vector,
             timestamps=timestamps
         )
-        return state
+        if return_distances:
+            return state, data['distances'][0]
+        else:
+            return state
 
     def delete(self, id:str):
         raise NotImplementedError("The delete method is not implemented yet.")
