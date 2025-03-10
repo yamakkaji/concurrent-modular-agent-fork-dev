@@ -5,7 +5,7 @@ import chromadb
 import chromadb.utils.embedding_functions as embedding_functions
 from dataclasses import dataclass
 import warnings
-
+import datetime
 
 @dataclass
 class StateRecord:
@@ -14,37 +14,59 @@ class StateRecord:
     vector: np.ndarray
     timestamp: float
     
+from dataclasses import dataclass
+import numpy as np
 
 @dataclass
-class State:
-    ids: list[str]
-    texts: list[str]
+class StateRecord:
+    id: str
+    text: str
     vector: np.ndarray
-    timestamps: list[float]
+    timestamp: float
+
+class State:
     def __init__(self, ids, texts, vector, timestamps):
         if len(ids) != len(texts) or len(ids) != len(vector) or len(ids) != len(timestamps):
             raise ValueError("The length of ids, texts, vectors, and timestamps must be the same.")
-        if type(ids) == np.ndarray:
+        if isinstance(ids, np.ndarray):
             ids = ids.tolist()
-        if type(texts) == np.ndarray:
+        if isinstance(texts, np.ndarray):
             texts = texts.tolist()
-        if type(timestamps) == np.ndarray:
+        if isinstance(timestamps, np.ndarray):
             timestamps = timestamps.tolist()
         self.ids = ids
         self.texts = texts
-        self.vector = vector
+        self.vector = np.array(vector)  # Ensure vector is a NumPy array
         self.timestamps = timestamps
     
     def __len__(self):
         return len(self.ids)
 
     def __getitem__(self, i):
-        return StateRecord(
-            id=self.ids[i],
-            text=self.texts[i],
-            vector=self.vector[i],
-            timestamp=self.timestamps[i]
-        )
+        if isinstance(i, int):  # 単一の整数インデックス
+            return StateRecord(
+                id=self.ids[i],
+                text=self.texts[i],
+                vector=self.vector[i],
+                timestamp=self.timestamps[i]
+            )
+        elif isinstance(i, (list, tuple, np.ndarray)):  # リスト、タプル、NumPy配列
+            indices = np.array(i, dtype=int)  # NumPy配列に変換
+            return State(
+                ids=[self.ids[idx] for idx in indices],
+                texts=[self.texts[idx] for idx in indices],
+                vector=self.vector[indices],
+                timestamps=[self.timestamps[idx] for idx in indices]
+            )
+        elif isinstance(i, slice):  # スライス
+            return State(
+                ids=self.ids[i],
+                texts=self.texts[i],
+                vector=self.vector[i],
+                timestamps=self.timestamps[i]
+            )
+        else:
+            raise TypeError("Indexing must be an integer, list, tuple, NumPy array, or slice.")
 
 
 class StateClient():
@@ -61,13 +83,18 @@ class StateClient():
     def _make_collection_name(self, agent_name):
         return f"{__package__}-state-{agent_name}"
     
-    def add(self, states:str|list):
+    def add(self, states:str|list, timestamp:float|datetime.datetime=None):
         if type(states) == str:
             states = [states]
         n = len(states)
         ids = [str(uuid.uuid4()) for i in range(n)]
-        now = datetime.datetime.now().timestamp()
-        timestamps = [now for i in range(n)]
+        if timestamp is None:
+            now = datetime.datetime.now().timestamp()
+            timestamps = [now for i in range(n)]
+        else:
+            if type(timestamp) == datetime.datetime:
+                timestamp = timestamp.timestamp()
+            timestamps = [timestamp for i in range(n)]
         metadatas = [{'timestamp': t} for t in timestamps]
         self._chromadb_collection.add(ids=ids, documents=states, metadatas=metadatas)
     
