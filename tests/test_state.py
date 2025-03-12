@@ -3,16 +3,18 @@ from concurrent_modular_agent.state import State
 import numpy as np
 import pytest
 
-# def test_state_metadata():
-#     state = StateClient("agent")
-#     state.clear()
-#     state.add("state 1", metadata={"tag": "tag1"})
-#     state.add("state 2", metadata={"tag": "tag2"})
-#     assert state.count() == 2
-#     s = state.get()
-#     assert len(s) == 2
-#     assert s[0].metadata["tag"] == "tag2"
-#     assert s[1].metadata["tag"] == "tag1"
+def test_state_metadata():
+    state = StateClient("agent")
+    state.clear()
+    state.add("state 1", metadata={"tag": "tag1"})
+    state.add("state 2", metadata={"tag": "tag2"})
+    state.add("state 3", metadata={"meta": "meta"})
+    assert state.count() == 3
+    s = state.get()
+    assert len(s) == 3
+    assert s[0].metadata["meta"] == "meta"
+    assert s[1].metadata["tag"] == "tag2"
+    assert s[2].metadata["tag"] == "tag1"
 
 def test_state_0():
     ids = ["id0", "id1", "id2", "id3", "id4"]

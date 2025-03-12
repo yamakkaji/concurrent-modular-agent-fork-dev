@@ -15,15 +15,6 @@ class StateRecord:
     timestamp: float
     metadata: dict
     
-from dataclasses import dataclass
-import numpy as np
-
-@dataclass
-class StateRecord:
-    id: str
-    text: str
-    vector: np.ndarray
-    timestamp: float
 
 class State:
     def __init__(self, ids, texts, vector, timestamps, metadata=None):
@@ -31,6 +22,8 @@ class State:
             raise ValueError("The length of ids, texts, vectors, and timestamps must be the same.")
         if metadata is not None and len(ids) != len(metadata):
             raise ValueError("The length of ids, texts, vectors, timestamps, and metadata must be the same.")
+        if metadata is None:
+            metadata = [{} for i in range(len(ids))]
         if isinstance(ids, np.ndarray):
             ids = ids.tolist()
         if isinstance(texts, np.ndarray):
@@ -54,7 +47,8 @@ class State:
                 id=self.ids[i],
                 text=self.texts[i],
                 vector=self.vector[i],
-                timestamp=self.timestamps[i]
+                timestamp=self.timestamps[i],
+                metadata=self.metadata[i]
             )
         elif isinstance(i, (list, tuple, np.ndarray)):  # リスト、タプル、NumPy配列
             indices = np.array(i, dtype=int)  # NumPy配列に変換
@@ -62,15 +56,16 @@ class State:
                 ids=[self.ids[idx] for idx in indices],
                 texts=[self.texts[idx] for idx in indices],
                 vector=self.vector[indices],
-                timestamps=[self.timestamps[idx] for idx in indices]
+                timestamps=[self.timestamps[idx] for idx in indices],
+                metadata=[self.metadata[idx] for idx in indices]
             )
         elif isinstance(i, slice):  # スライス
             return State(
                 ids=self.ids[i],
                 texts=self.texts[i],
                 vector=self.vector[i],
-                timestamps=self.timestamps[i]
-                
+                timestamps=self.timestamps[i],
+                metadata=self.metadata[i]
             )
         else:
             raise TypeError("Indexing must be an integer, list, tuple, NumPy array, or slice.")
@@ -105,6 +100,9 @@ class StateClient():
                 timestamp = timestamp.timestamp()
             timestamps = [timestamp for i in range(n)]
         metadatas = [{'timestamp': t} for t in timestamps]
+        if metadata is not None:
+            for m in metadatas:
+                m.update(metadata)
         self._chromadb_collection.add(ids=ids, documents=states, metadatas=metadatas)
     
 
@@ -113,12 +111,18 @@ class StateClient():
         ids = np.array(data['ids'])
         texts = np.array(data['documents'])
         vector = np.array(data['embeddings'])
-        timestamps = np.array([m['timestamp'] for m in data['metadatas']])
+        timestamps = []
+        metadata = []
+        for m in data['metadatas']:
+            timestamps.append(m['timestamp'])
+            m.pop('timestamp')
+            metadata.append(m)
         state = State(
             ids=ids,
             texts=texts,
             vector=vector,
-            timestamps=timestamps
+            timestamps=timestamps,
+            metadata=metadata
         )
         index = np.argsort(timestamps)[::-1]
         state = state[index]
@@ -133,6 +137,7 @@ class StateClient():
         data = self._chromadb_collection.query(query_texts=query_text, 
                                                n_results=max_count, 
                                                include=query_include)
+        
         ids = np.array(data['ids'])[0]
         texts = np.array(data['documents'])[0]
         vector = np.array(data['embeddings'])[0]
@@ -161,7 +166,6 @@ class StateClient():
         self._chromadb_collection = self._chromadb_client.create_collection(
             collection_name, 
             embedding_function=self._embedding_function)
-
 
     def latest(self, max_count:int=10):
         warnings.warn("The 'latest' method is deprecated, use 'get' method instead.", DeprecationWarning)
