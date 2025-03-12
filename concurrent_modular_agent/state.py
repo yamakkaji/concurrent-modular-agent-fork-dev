@@ -13,6 +13,7 @@ class StateRecord:
     text: str
     vector: np.ndarray
     timestamp: float
+    metadata: dict
     
 from dataclasses import dataclass
 import numpy as np
@@ -25,19 +26,24 @@ class StateRecord:
     timestamp: float
 
 class State:
-    def __init__(self, ids, texts, vector, timestamps):
+    def __init__(self, ids, texts, vector, timestamps, metadata=None):
         if len(ids) != len(texts) or len(ids) != len(vector) or len(ids) != len(timestamps):
             raise ValueError("The length of ids, texts, vectors, and timestamps must be the same.")
+        if metadata is not None and len(ids) != len(metadata):
+            raise ValueError("The length of ids, texts, vectors, timestamps, and metadata must be the same.")
         if isinstance(ids, np.ndarray):
             ids = ids.tolist()
         if isinstance(texts, np.ndarray):
             texts = texts.tolist()
         if isinstance(timestamps, np.ndarray):
             timestamps = timestamps.tolist()
+        if isinstance(metadata, np.ndarray):
+            metadata = metadata.tolist()
         self.ids = ids
         self.texts = texts
         self.vector = np.array(vector)  # Ensure vector is a NumPy array
         self.timestamps = timestamps
+        self.metadata = metadata
     
     def __len__(self):
         return len(self.ids)
@@ -64,6 +70,7 @@ class State:
                 texts=self.texts[i],
                 vector=self.vector[i],
                 timestamps=self.timestamps[i]
+                
             )
         else:
             raise TypeError("Indexing must be an integer, list, tuple, NumPy array, or slice.")
@@ -83,7 +90,9 @@ class StateClient():
     def _make_collection_name(self, agent_name):
         return f"{__package__}-state-{agent_name}"
     
-    def add(self, states:str|list, timestamp:float|datetime.datetime=None):
+    def add(self, states:str|list, 
+            timestamp:float|datetime.datetime=None, 
+            metadata:dict=None):
         if type(states) == str:
             states = [states]
         n = len(states)
@@ -98,28 +107,25 @@ class StateClient():
         metadatas = [{'timestamp': t} for t in timestamps]
         self._chromadb_collection.add(ids=ids, documents=states, metadatas=metadatas)
     
-    def latest(self, max_count:int=10):
+
+    def get(self, max_count:int=None):
         data = self._chromadb_collection.get(include=['embeddings', 'documents', 'metadatas'])
-        timestamp = [m['timestamp'] for m in data['metadatas']]
-        index = np.argsort(timestamp)[::-1]
-        if max_count is not None and max_count > 0:
-            index = index[:max_count]
-        ids = np.array(data['ids'])[index]
-        texts = np.array(data['documents'])[index]
-        vector = np.array(data['embeddings'])[index]
-        timestamps = np.array([m['timestamp'] for m in data['metadatas']])[index]
+        ids = np.array(data['ids'])
+        texts = np.array(data['documents'])
+        vector = np.array(data['embeddings'])
+        timestamps = np.array([m['timestamp'] for m in data['metadatas']])
         state = State(
             ids=ids,
             texts=texts,
             vector=vector,
             timestamps=timestamps
         )
+        index = np.argsort(timestamps)[::-1]
+        state = state[index]
+        if max_count is not None and max_count > 0:
+            state = state[:max_count]
         return state
-    
-    def retrieve(self, query_text:str, max_count:int=10):
-        warnings.warn("The 'retrieve' method is deprecated, use 'query' method instead.", DeprecationWarning)
-        return self.query(query_text=query_text, max_count=max_count)
-    
+
     def query(self, query_text:str, max_count:int=10, return_distances:bool=False):
         query_include = ['embeddings', 'documents', 'metadatas']
         if return_distances:
@@ -157,4 +163,11 @@ class StateClient():
             embedding_function=self._embedding_function)
 
 
+    def latest(self, max_count:int=10):
+        warnings.warn("The 'latest' method is deprecated, use 'get' method instead.", DeprecationWarning)
+        return self.get(max_count=max_count)
+
+    def retrieve(self, query_text:str, max_count:int=10):
+        warnings.warn("The 'retrieve' method is deprecated, use 'query' method instead.", DeprecationWarning)
+        return self.query(query_text=query_text, max_count=max_count)
     

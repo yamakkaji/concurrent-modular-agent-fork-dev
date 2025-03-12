@@ -15,7 +15,7 @@ class BaseRetriever:
 
 class LatestRetriever(BaseRetriever):
     def retrieve(self, max_count=1):
-        latest = self.state.latest(max_count=max_count)
+        latest = self.state.get(max_count=max_count)
         return latest
 
 class TimeWeightedRetriever(BaseRetriever):

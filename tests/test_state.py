@@ -3,6 +3,16 @@ from concurrent_modular_agent.state import State
 import numpy as np
 import pytest
 
+# def test_state_metadata():
+#     state = StateClient("agent")
+#     state.clear()
+#     state.add("state 1", metadata={"tag": "tag1"})
+#     state.add("state 2", metadata={"tag": "tag2"})
+#     assert state.count() == 2
+#     s = state.get()
+#     assert len(s) == 2
+#     assert s[0].metadata["tag"] == "tag2"
+#     assert s[1].metadata["tag"] == "tag1"
 
 def test_state_0():
     ids = ["id0", "id1", "id2", "id3", "id4"]
@@ -26,7 +36,7 @@ def test_state_2():
     state_num = state.count()
     state.add("aaaa")
     assert state.count() == state_num + 1
-    s = state.latest(max_count=10)
+    s = state.get(max_count=10)
     assert s[0].text == "aaaa"
 
 def test_state_3():
@@ -49,13 +59,13 @@ def test_state_4():
     state.add(new_states)
     state.add('state new')
     assert state.count() == 101
-    s = state.latest(max_count=1)
+    s = state.get(max_count=1)
     assert s[0].text == 'state new'
 
 def test_state_5():
     state = StateClient("agent")
     state.clear()
-    s = state.latest()
+    s = state.get()
     assert len(s) == 0
 
 def test_state_6():
@@ -65,10 +75,24 @@ def test_state_6():
     for i in range(100):
         new_states.append(f"state {i}")
     state.add(new_states)
-    s = state.latest(max_count=-1)
+    s = state.get(max_count=-1)
     assert len(s) == 100
-    s = state.latest(max_count=None)
+    s = state.get(max_count=None)
     assert len(s) == 100
+
+# def test_state_huge_data():
+#     state = StateClient("agent")
+#     state.clear()
+#     new_states = []
+#     N = 10000
+#     for i in range(N):
+#         print(i)
+#         new_states.append(f"state {i}")
+#     state.add(new_states)
+#     s = state.get()
+#     assert len(s) == N
+#     s = state.get(max_count=10)
+#     assert len(s) == 10
 
 import datetime
 def test_state_datetime_1():
@@ -77,7 +101,7 @@ def test_state_datetime_1():
     state.add("3", timestamp=datetime.datetime(2025, 1, 3))
     state.add("1", timestamp=datetime.datetime(2025, 1, 1))
     state.add("2", timestamp=datetime.datetime(2025, 1, 2))
-    s = state.latest(max_count=3)
+    s = state.get(max_count=3)
     assert s[0].text == "3"
     assert s[1].text == "2"
     assert s[2].text == "1"
@@ -88,7 +112,8 @@ def test_state_datetime_2():
     state.add("3", timestamp=3)
     state.add("1", timestamp=1)
     state.add("2", timestamp=2)
-    s = state.latest(max_count=3)
+    s = state.get(max_count=3)
     assert s[0].text == "3"
     assert s[1].text == "2"
     assert s[2].text == "1"    
+    
