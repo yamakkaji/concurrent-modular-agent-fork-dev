@@ -15,6 +15,9 @@ def test_state_metadata():
     assert s[0].metadata["meta"] == "meta"
     assert s[1].metadata["tag"] == "tag2"
     assert s[2].metadata["tag"] == "tag1"
+    s = state.query("1", max_count=1)
+    assert len(s) == 1
+    assert s[0].metadata["tag"] == "tag1"
 
 def test_state_0():
     ids = ["id0", "id1", "id2", "id3", "id4"]

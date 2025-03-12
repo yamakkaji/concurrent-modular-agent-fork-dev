@@ -41,27 +41,11 @@ class StateClient():
             for m in metadatas:
                 m.update(metadata)
         self._chromadb_collection.add(ids=ids, documents=states, metadatas=metadatas)
-    
 
     def get(self, max_count:int=None):
         data = self._chromadb_collection.get(include=['embeddings', 'documents', 'metadatas'])
-        ids = np.array(data['ids'])
-        texts = np.array(data['documents'])
-        vector = np.array(data['embeddings'])
-        timestamps = []
-        metadata = []
-        for m in data['metadatas']:
-            timestamps.append(m['timestamp'])
-            m.pop('timestamp')
-            metadata.append(m)
-        state = State(
-            ids=ids,
-            texts=texts,
-            vector=vector,
-            timestamps=timestamps,
-            metadata=metadata
-        )
-        index = np.argsort(timestamps)[::-1]
+        state = self._convert_chromadb_data_to_state(data)
+        index = np.argsort(state.timestamps)[::-1]
         state = state[index]
         if max_count is not None and max_count > 0:
             state = state[:max_count]
@@ -74,16 +58,21 @@ class StateClient():
         data = self._chromadb_collection.query(query_texts=query_text, 
                                                n_results=max_count, 
                                                include=query_include)
-        
-        ids = np.array(data['ids'])[0]
-        texts = np.array(data['documents'])[0]
-        vector = np.array(data['embeddings'])[0]
-        timestamps = np.array([m['timestamp'] for m in data['metadatas'][0]])
+        ids = data['ids'][0]
+        texts = data['documents'][0]
+        vector = data['embeddings'][0]
+        timestamps = []
+        metadata = []
+        for m in data['metadatas'][0]:
+            timestamps.append(m['timestamp'])
+            m.pop('timestamp')
+            metadata.append(m)
         state = State(
             ids=ids,
             texts=texts,
             vector=vector,
-            timestamps=timestamps
+            timestamps=timestamps,
+            metadata=metadata
         )
         if return_distances:
             return state, data['distances'][0]
@@ -104,6 +93,27 @@ class StateClient():
             collection_name, 
             embedding_function=self._embedding_function)
 
+    @staticmethod
+    def _convert_chromadb_data_to_state(data):
+        ids = data['ids']
+        texts = data['documents']
+        vector = data['embeddings']
+        metadata = data['metadatas']
+        timestamps = []
+        metadata = []
+        for m in data['metadatas']:
+            timestamps.append(m['timestamp'])
+            m.pop('timestamp')
+            metadata.append(m)
+        state = State(
+            ids=ids,
+            texts=texts,
+            vector=vector,
+            timestamps=timestamps,
+            metadata=metadata
+        )
+        return state
+    
     def latest(self, max_count:int=10):
         warnings.warn("The 'latest' method is deprecated, use 'get' method instead.", DeprecationWarning)
         return self.get(max_count=max_count)
