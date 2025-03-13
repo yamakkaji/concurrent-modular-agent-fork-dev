@@ -22,7 +22,8 @@ class StateClient():
     def _make_collection_name(self, agent_name):
         return f"{__package__}-state-{agent_name}"
     
-    def add(self, states:str|list, 
+    def add(self, 
+            states:str|list, 
             timestamp:float|datetime.datetime=None, 
             metadata:dict=None):
         if type(states) == str:
@@ -42,8 +43,11 @@ class StateClient():
                 m.update(metadata)
         self._chromadb_collection.add(ids=ids, documents=states, metadatas=metadatas)
 
-    def get(self, max_count:int=None):
-        data = self._chromadb_collection.get(include=['embeddings', 'documents', 'metadatas'])
+    def get(self, max_count:int=None, metadata:dict=None):
+        if metadata is None:
+            data = self._chromadb_collection.get(include=['embeddings', 'documents', 'metadatas'])
+        else:
+            data = self._chromadb_collection.get(include=['embeddings', 'documents', 'metadatas'], where=metadata)
         state = self._convert_chromadb_data_to_state(data)
         index = np.argsort(state.timestamps)[::-1]
         state = state[index]
