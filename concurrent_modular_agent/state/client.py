@@ -22,7 +22,8 @@ class StateClient():
     def _make_collection_name(self, agent_name):
         return f"{__package__}-state-{agent_name}"
     
-    def add(self, states:str|list, 
+    def add(self, 
+            states:str|list, 
             timestamp:float|datetime.datetime=None, 
             metadata:dict=None):
         if type(states) == str:
@@ -42,8 +43,11 @@ class StateClient():
                 m.update(metadata)
         self._chromadb_collection.add(ids=ids, documents=states, metadatas=metadatas)
 
-    def get(self, max_count:int=None):
-        data = self._chromadb_collection.get(include=['embeddings', 'documents', 'metadatas'])
+    def get(self, max_count:int=None, metadata:dict=None):
+        if metadata is None:
+            data = self._chromadb_collection.get(include=['embeddings', 'documents', 'metadatas'])
+        else:
+            data = self._chromadb_collection.get(include=['embeddings', 'documents', 'metadatas'], where=metadata)
         state = self._convert_chromadb_data_to_state(data)
         index = np.argsort(state.timestamps)[::-1]
         state = state[index]
@@ -51,13 +55,15 @@ class StateClient():
             state = state[:max_count]
         return state
 
-    def query(self, query_text:str, max_count:int=10, return_distances:bool=False):
+    def query(self, query_text:str, max_count:int=10, return_distances:bool=False, metadata:dict=None):
         query_include = ['embeddings', 'documents', 'metadatas']
         if return_distances:
             query_include.append('distances')
-        data = self._chromadb_collection.query(query_texts=query_text, 
-                                               n_results=max_count, 
-                                               include=query_include)
+        if metadata is None:
+            data = self._chromadb_collection.query(query_texts=query_text, n_results=max_count, include=query_include)
+        else:
+            data = self._chromadb_collection.query(query_texts=query_text, n_results=max_count, include=query_include, where=metadata)
+                                               
         ids = data['ids'][0]
         texts = data['documents'][0]
         vector = data['embeddings'][0]
@@ -118,7 +124,7 @@ class StateClient():
         warnings.warn("The 'latest' method is deprecated, use 'get' method instead.", DeprecationWarning)
         return self.get(max_count=max_count)
 
-    def retrieve(self, query_text:str, max_count:int=10):
+    def retrieve(self, query_text:str, max_count:int=10, metadata:dict=None):
         warnings.warn("The 'retrieve' method is deprecated, use 'query' method instead.", DeprecationWarning)
-        return self.query(query_text=query_text, max_count=max_count)
+        return self.query(query_text=query_text, max_count=max_count, metadata=metadata)
     
