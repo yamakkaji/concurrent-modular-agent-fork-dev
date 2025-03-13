@@ -32,6 +32,26 @@ def test_state_metadata_get():
     assert s[1].metadata["tag"] == "tag1"
     assert s[1].text == "state 1"
 
+def test_state_metadata_query():
+    state = StateClient("agent")
+    state.clear()
+    state.add("hello", metadata={"tag": "tag1"})
+    state.add("world", metadata={"tag": "tag1"})
+    state.add("hello", metadata={"tag": "tag2"})
+    state.add("world", metadata={"tag": "tag2"})
+    s = state.query("hello", metadata={"tag": "tag1"})
+    assert len(s) == 2
+    assert s[0].metadata["tag"] == "tag1"
+    assert s[0].text == "hello"
+    assert s[1].metadata["tag"] == "tag1"
+    assert s[1].text == "world"
+    s = state.query("hello", metadata={"tag": "tag2"})
+    assert len(s) == 2
+    assert s[0].metadata["tag"] == "tag2"
+    assert s[0].text == "hello"
+    assert s[1].metadata["tag"] == "tag2"
+    assert s[1].text == "world"
+       
 def test_state_0():
     ids = ["id0", "id1", "id2", "id3", "id4"]
     texts = ["text0", "text1", "text2", "text3", "text4"]
