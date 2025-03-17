@@ -10,6 +10,11 @@ classifiers = ["License :: OSI Approved :: MIT License"]
 dynamic = ["version", "description"]
 dependencies = [
     "numpy",
+    "chromadb",
+    "paho_mqtt",
+    "loguru",
+    "openai",
+    "lark"
 ]
 
 [project.optional-dependencies]

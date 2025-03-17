@@ -13,10 +13,9 @@ $ python -m venv .venv
 $ source .venv/bin/activate
 ```
 
-Install required packages and this repository.
+Install 
 ```console
-$ pip install -r requirements.txt
-$ pip install -e .
+$ pip install -e ".[dev]"
 ```
 
 #### Test
