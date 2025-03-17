@@ -3,7 +3,7 @@ import pytest
 
 @pytest.fixture
 def state():
-    state = StateClient("test_timeweighted_retriever")
+    state = StateClient("testretriever")
     state.clear()
     state.add("I like apple.", timestamp=0)
     state.add("I like banana.", timestamp=1)
