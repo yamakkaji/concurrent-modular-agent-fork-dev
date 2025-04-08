@@ -43,3 +43,10 @@ $ python -m concurrent_modular_agent.backend start
 
 ## Examples
 Examples of modules and agents are provided in `./examples`
+
+
+### New CLI interface
+
+```console
+$ coma examples/project_interface/chat
+```
