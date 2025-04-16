@@ -33,16 +33,16 @@ The framework has been validated on the following platforms:
 - **Ubuntu**
 
 ### Setup
-Install docker
+1. Install docker. 
 https://docs.docker.com/engine/install/
 
-It is recommended to use a virtual environment
+2. It is recommended to use a virtual environment. 
 ```console
 $ python -m venv .venv
 $ source .venv/bin/activate
 ```
 
-Install 
+3. Install the required packages.
 ```console
 $ pip install -e ".[dev]"
 ```
