@@ -24,11 +24,11 @@ class TimeWeightedRetriever(BaseRetriever):
         self.decay_rate = decay_rate
         
     def retrieve(self, 
-                 query_string:str, 
+                 query_text:str, 
                  max_count=1, 
                  now:float|datetime=None):
         query_max_count = 100
-        all_state, distances = self.state.query(query_string, 
+        all_state, distances = self.state.query(query_text, 
                                                 max_count=query_max_count,
                                                 return_distances=True)
         if now is None:
