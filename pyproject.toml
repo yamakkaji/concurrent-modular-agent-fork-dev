@@ -10,12 +10,21 @@ classifiers = ["License :: OSI Approved :: MIT License"]
 dynamic = ["version", "description"]
 dependencies = [
     "numpy",
+    "chromadb",
+    "paho_mqtt",
+    "loguru",
+    "openai",
+    "lark",
+    "watchdog"
 ]
 
 [project.optional-dependencies]
 dev = [
     "pytest",
 ]
+
+[project.scripts]
+coma = "concurrent_modular_agent.cli:main"
 
 # pyproject.toml
 [tool.pytest.ini_options]
