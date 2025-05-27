@@ -3,13 +3,19 @@ from paho.mqtt import client as mqtt
 import queue
 
 class MessageClient():
-    def __init__(self, agent_name, module_name, mqtt_broker: str = "localhost", mqtt_port: int = 1883):
+    def __init__(self, 
+                 agent_name, 
+                 module_name, 
+                 mqtt_broker: str = "localhost", 
+                 mqtt_port: int = 1883, 
+                 mqtt_qos: int = 2):
         self.agent_name = agent_name
         self.module_name = module_name
         self.mqtt_client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
         self.mqtt_client.connect(mqtt_broker, mqtt_port)
         my_mqtt_topic = self._make_mqtt_topic(module_name)
-        self.mqtt_client.subscribe(my_mqtt_topic, qos=0)
+        self._mqtt_qos = mqtt_qos
+        self.mqtt_client.subscribe(my_mqtt_topic, qos=self._mqtt_qos)
         self.message_queue = queue.Queue()
         
         def on_message(client, userdata, msg):
@@ -24,7 +30,7 @@ class MessageClient():
 
     def send(self, receiver_name, message):
         target_mqtt_topic = self._make_mqtt_topic(receiver_name)
-        self.mqtt_client.publish(target_mqtt_topic, message, qos=0)
+        self.mqtt_client.publish(target_mqtt_topic, message, qos=self._mqtt_qos)
     
     def receive(self, timeout=None):
         try:
