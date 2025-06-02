@@ -18,6 +18,11 @@ class LatestRetriever(BaseRetriever):
         latest = self.state.get(max_count=max_count)
         return latest
 
+class OldestRetriever(BaseRetriever):
+    def retrieve(self, max_count=1):
+        oldest = self.state.get(max_count=max_count, reverse=True)
+        return oldest
+
 class TimeWeightedRetriever(BaseRetriever):
     def __init__(self, state, decay_rate):
         super().__init__(state)

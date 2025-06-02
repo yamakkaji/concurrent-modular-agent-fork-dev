@@ -9,4 +9,4 @@ if platform.system() == 'Darwin':
 from .agent import Agent
 from .message import MessageClient
 from .state import StateClient
-from .retriever import BaseRetriever, LatestRetriever, TimeWeightedRetriever
+from .retriever import BaseRetriever, LatestRetriever, OldestRetriever, TimeWeightedRetriever
