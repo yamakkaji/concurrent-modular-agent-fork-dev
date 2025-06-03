@@ -3,7 +3,20 @@ from .state import StateClient
 from .message import MessageClient
 import concurrent_modular_agent as cma
 
+"""
+This class is intended for the mode where agents are launched via the coma CLI interface.
+"""
+class AgentInterface:
+    def __init__(self, agent_name, module_name):
+        self.agent_name = agent_name
+        self.module_name = module_name
+        self.state = StateClient(agent_name, module_name)
+        self.message = MessageClient(agent_name, module_name)
 
+
+"""
+This class is intended for the mode where modules are implemented as Python functions and agents are launched from a Python script.
+"""
 class Agent():
     def __init__(self, name:str):
         self.name = name

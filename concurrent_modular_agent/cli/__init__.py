@@ -6,7 +6,6 @@ import sys
 import importlib.util
 import os
 import functools
-from concurrent_modular_agent import Agent, StateClient, MessageClient
 from concurrent_modular_agent import AgentInterface
 
 def module_main(module_name):
