@@ -11,9 +11,11 @@ services:
         - ./mosquitto/config:/mosquitto/config
 
   chromadb:
-      image:  chromadb/chroma
+      image:  chromadb/chroma:1.0.12
       container_name: chromadb
       ports:
         - 8000:8000
       restart: always
+      volumes:
+        - ~/.coma/data:/data
       

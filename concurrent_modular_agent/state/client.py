@@ -13,14 +13,12 @@ class StateClient():
         self._chromadb_client = chromadb.HttpClient(host='localhost', port=8000)
         self._embedding_function = embedding_functions.OpenAIEmbeddingFunction(
             api_key=os.getenv('OPENAI_API_KEY'),
-            model_name="text-embedding-ada-002"
+            model_name="text-embedding-3-small"
         )
         self._chromadb_collection = self._chromadb_client.get_or_create_collection(
             self._make_collection_name(agent_name),
-            # embedding_function=self._embedding_function
-            embedding_function=None
+            embedding_function=self._embedding_function
         )
-        self._chromadb_collection._embedding_function = self._embedding_function
 
     def _make_collection_name(self, agent_name):
         return f"{__package__}-state-{agent_name}"
@@ -102,8 +100,8 @@ class StateClient():
         self._chromadb_client.delete_collection(collection_name)
         self._chromadb_collection = self._chromadb_client.create_collection(
             collection_name,
-            embedding_function=None)
-        self._chromadb_collection._embedding_function = self._embedding_function
+            embedding_function=self._embedding_function
+        )
 
     @staticmethod
     def _convert_chromadb_data_to_state(data):
