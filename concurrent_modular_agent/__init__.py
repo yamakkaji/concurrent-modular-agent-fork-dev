@@ -10,4 +10,5 @@ from .agent import Agent, AgentInterface
 from .message import MessageClient
 from .state import StateClient
 from .retriever import BaseRetriever, LatestRetriever, OldestRetriever, TimeWeightedRetriever
-from .cli import module_main
+# from .cli import module_main
+from .module_main import module_main
