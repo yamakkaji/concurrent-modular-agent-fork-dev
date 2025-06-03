@@ -84,7 +84,7 @@ Examples for each mode are available in the `examples` directory.
 ### Running examples declaratively from within Python
 
 ```console
-$ python examples/chat.py
+$ python examples/python_interface/chat.py
 ```
 
 ### Running examples via the `coma` CLI interface
