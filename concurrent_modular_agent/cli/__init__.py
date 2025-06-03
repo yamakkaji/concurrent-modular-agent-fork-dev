@@ -7,14 +7,7 @@ import importlib.util
 import os
 import functools
 from concurrent_modular_agent import Agent, StateClient, MessageClient
-
-
-class AgentInterface:
-    def __init__(self, agent_name, module_name):
-        self.agent_name = agent_name
-        self.module_name = module_name
-        self.state = StateClient(agent_name, module_name)
-        self.message = MessageClient(agent_name, module_name)
+from concurrent_modular_agent import AgentInterface
 
 def module_main(module_name):
     def _module_main(f):

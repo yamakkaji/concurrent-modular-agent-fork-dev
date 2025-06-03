@@ -1,16 +1,9 @@
-    
-import time
-# from test import main
-
-import sys
-sys.path.append('..')
-from concurrent_modular_agent.cli import module_main, AgentInterface
+import concurrent_modular_agent as coma
 from openai import OpenAI
 
-# @main
-@module_main('chat')
-def test2(agent:AgentInterface):
-    # print(f'{agent.agent_name}:{agent.module_name} start')
+
+@coma.module_main('chat')
+def test2(agent:coma.AgentInterface):
     openai_client = OpenAI()
     while True:
         m = agent.message.receive()
