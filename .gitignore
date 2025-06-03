@@ -170,3 +170,4 @@ cython_debug/
 .envrc
 .vscode
 docd/build/
+.DS_Store

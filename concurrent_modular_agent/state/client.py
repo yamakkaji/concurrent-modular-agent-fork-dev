@@ -13,11 +13,12 @@ class StateClient():
         self._chromadb_client = chromadb.HttpClient(host='localhost', port=8000)
         self._embedding_function = embedding_functions.OpenAIEmbeddingFunction(
             api_key=os.getenv('OPENAI_API_KEY'),
-            model_name="text-embedding-ada-002"
+            model_name="text-embedding-3-small"
         )
         self._chromadb_collection = self._chromadb_client.get_or_create_collection(
             self._make_collection_name(agent_name),
-            embedding_function=self._embedding_function)
+            embedding_function=self._embedding_function
+        )
 
     def _make_collection_name(self, agent_name):
         return f"{__package__}-state-{agent_name}"
@@ -43,7 +44,7 @@ class StateClient():
                 m.update(metadata)
         self._chromadb_collection.add(ids=ids, documents=states, metadatas=metadatas)
 
-    def get(self, max_count:int=None, metadata:dict=None):
+    def get(self, max_count:int=None, metadata:dict=None, reverse:bool=False):
         if metadata is None:
             data = self._chromadb_collection.get(include=['embeddings', 'documents', 'metadatas'])
         else:
@@ -51,6 +52,8 @@ class StateClient():
         state = self._convert_chromadb_data_to_state(data)
         index = np.argsort(state.timestamps)[::-1]
         state = state[index]
+        if reverse:
+            state = state[::-1]
         if max_count is not None and max_count > 0:
             state = state[:max_count]
         return state
@@ -96,8 +99,9 @@ class StateClient():
         collection_name = self._chromadb_collection.name
         self._chromadb_client.delete_collection(collection_name)
         self._chromadb_collection = self._chromadb_client.create_collection(
-            collection_name, 
-            embedding_function=self._embedding_function)
+            collection_name,
+            embedding_function=self._embedding_function
+        )
 
     @staticmethod
     def _convert_chromadb_data_to_state(data):

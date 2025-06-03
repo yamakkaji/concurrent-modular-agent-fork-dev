@@ -10,7 +10,7 @@ classifiers = ["License :: OSI Approved :: MIT License"]
 dynamic = ["version", "description"]
 dependencies = [
     "numpy",
-    "chromadb",
+    "chromadb==1.0.12",
     "paho_mqtt",
     "loguru",
     "openai",
