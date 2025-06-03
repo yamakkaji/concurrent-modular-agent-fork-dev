@@ -70,9 +70,31 @@ Run
 $ python -m concurrent_modular_agent.backend start
 ```
 
-
 ## Examples
-Examples of modules and agents are provided in `./examples`
+
+There are two modes of running this framework:
+
+1. Declaratively from within Python
+2. Via the `coma` CLI interface
+
+These two modes cannot be mixed.
+
+Examples for each mode are available in the `examples` directory.
+
+### Running examples declaratively from within Python
+
+```console
+$ python examples/python_interface/chat.py
+```
+
+### Running examples via the `coma` CLI interface
+
+```console
+$ coma examples/coma_interface/chat
+```
+In this mode, hot-reloading of modules is enabled.
+Any edits made to files in the folder are reflected immediately without needing to restart the execution.
+
 
 
 ### New CLI interface
