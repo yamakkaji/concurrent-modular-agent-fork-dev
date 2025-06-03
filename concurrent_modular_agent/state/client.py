@@ -12,7 +12,7 @@ class StateClient():
     def __init__(self, agent_name, module_name:str=None):
         self._chromadb_client = chromadb.HttpClient(host='localhost', port=8000)
         self._embedding_function = embedding_functions.OpenAIEmbeddingFunction(
-            api_key=os.getenv('OPENAI_API_KEY'),
+            api_key_env_var="OPENAI_API_KEY",
             model_name="text-embedding-3-small"
         )
         self._chromadb_collection = self._chromadb_client.get_or_create_collection(
