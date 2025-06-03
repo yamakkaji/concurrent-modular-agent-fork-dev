@@ -7,7 +7,7 @@ import sys
 import os
 # import functools
 # from concurrent_modular_agent import AgentInterface
-from concurrent_modular_agent.module_runner import find_module_main_function
+from .module_runner import find_module_main_function
 
 
 class ScriptReloader(FileSystemEventHandler):

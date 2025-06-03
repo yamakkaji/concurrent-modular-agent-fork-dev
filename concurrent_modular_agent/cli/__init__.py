@@ -1,4 +1,4 @@
-from .agent_runner import start_agent
+from ..runner import start_agent
 import click
 
 @click.group()
