@@ -81,14 +81,25 @@ def start_agent(project_dir):
         for observer in watchdog_observers:
             observer.join()
 
+
+import click
+
+@click.group()
+def cli():
+    """CLI tool with run and memory commands"""
+    pass
+
+@cli.command()
+@click.argument('project_dir')
+def run(project_dir):
+    """Run the agent with the specified project directory"""
+    start_agent(project_dir)
+
+@cli.command()
+@click.argument('arg')
+def memory(arg):
+    """Memory management command"""
+    click.echo(f"Not implemented yet. Argument: {arg}")
+
 def main():
-    if len(sys.argv) < 2:
-        print("Usage: python watch_and_run.py <script_to_watch.py>")
-        sys.exit(1)
-
-    script_to_watch = sys.argv[1]
-    start_agent(script_to_watch)
-
-
-if __name__ == "__main__":
-    main()
+    cli()
