@@ -9,6 +9,9 @@ if __name__ == "__main__":
             start()
         elif sys.argv[1] == "stop":
             stop()
+        elif sys.argv[1] == "restart":
+            stop()
+            start()
         else:
             print("Invalid argument. Use 'start' or 'stop'.")
     else:
