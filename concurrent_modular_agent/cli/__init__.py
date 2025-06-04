@@ -3,7 +3,7 @@ import click
 
 @click.group()
 def cli():
-    """CLI tool with run and memory commands"""
+    """CLI tool for concurrent modular agent"""
     pass
 
 
@@ -49,6 +49,8 @@ def restart():
 """
 Memory commands
 """    
+from .. import utils as coma_utils
+
 @cli.group()
 def memory():
     """Memory management commands"""
@@ -57,7 +59,10 @@ def memory():
 @memory.command()
 def ls():
     """List memory contents"""
-    click.echo("Memory ls command - not implemented yet")
+    memory_list = coma_utils.get_all_memory()
+    for memory in memory_list:
+        print(memory)
+
 
 def main():
     cli()
