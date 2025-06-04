@@ -1,13 +1,21 @@
 import subprocess
 import time
+import importlib.util
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 import sys
-# import importlib.util
 import os
-# import functools
-# from concurrent_modular_agent import AgentInterface
-from .module_runner import find_module_main_function
+
+
+def find_module_main_function(script_path):
+    spec = importlib.util.spec_from_file_location("module.name", script_path)
+    module = importlib.util.module_from_spec(spec)
+    sys.modules["module.name"] = module
+    spec.loader.exec_module(module)
+    for name, func in module.__dict__.items():
+        if callable(func) and getattr(func, "__module_main__", False):
+            return func
+    return None
 
 
 class ScriptReloader(FileSystemEventHandler):
@@ -21,7 +29,7 @@ class ScriptReloader(FileSystemEventHandler):
             self.process.terminate()
             self.process.wait()
         # print(f"Starting script: {self.script_path}")
-        self.process = subprocess.Popen([sys.executable, '-m' 'concurrent_modular_agent.module_runner', self.script_path])
+        self.process = subprocess.Popen([sys.executable, '-m' 'concurrent_modular_agent.module_main_wrapper', self.script_path])
 
     def on_modified(self, event):
         print(f"Detected change in {self.script_path}")

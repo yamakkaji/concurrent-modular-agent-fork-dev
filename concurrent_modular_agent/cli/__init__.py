@@ -12,11 +12,15 @@ def run(project_dir):
     """Run the agent with the specified project directory"""
     start_agent(project_dir)
 
-@cli.command()
-@click.argument('arg')
-def memory(arg):
-    """Memory management command"""
-    click.echo(f"Not implemented yet. Argument: {arg}")
+@cli.group()
+def memory():
+    """Memory management commands"""
+    pass
+
+@memory.command()
+def ls():
+    """List memory contents"""
+    click.echo("Memory ls command - not implemented yet")
 
 def main():
     cli()
