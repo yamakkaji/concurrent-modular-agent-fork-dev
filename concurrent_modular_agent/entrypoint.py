@@ -1,5 +1,5 @@
 import sys
-from .runner import find_module_main_function
+from .agent_runner import find_module_main_function
 
 
 if __name__ == "__main__":

@@ -1,10 +1,16 @@
-from ..agent_runner import start_agent
 import click
+
 
 @click.group()
 def cli():
     """CLI tool with run and memory commands"""
     pass
+
+
+"""
+Run commands
+"""
+from ..agent_runner import start_agent
 
 @cli.command()
 @click.argument('project_dir')
@@ -12,10 +18,12 @@ def run(project_dir):
     """Run the agent with the specified project directory"""
     start_agent(project_dir)
 
+
 """
 Backend commands
 """
 from .. import backend as coma_backend
+
 @cli.group()
 def backend():
     """Backend management commands"""
@@ -36,7 +44,8 @@ def restart():
     """Restart the backend service"""
     coma_backend.stop()
     coma_backend.start()
-    
+
+
 """
 Memory commands
 """    
