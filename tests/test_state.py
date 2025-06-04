@@ -4,7 +4,7 @@ import numpy as np
 import pytest
 
 def test_state_metadata():
-    state = StateClient("agent")
+    state = StateClient("test_agent")
     state.clear()
     state.add("state 1", metadata={"tag": "tag1"})
     state.add("state 2", metadata={"tag": "tag2"})
@@ -20,7 +20,7 @@ def test_state_metadata():
     assert s[0].metadata["tag"] == "tag1"
 
 def test_state_metadata_get():
-    state = StateClient("agent")
+    state = StateClient("test_agent")
     state.clear()
     state.add("state 1", metadata={"tag": "tag1"})
     state.add("state 2", metadata={"tag": "tag1"})
@@ -33,7 +33,7 @@ def test_state_metadata_get():
     assert s[1].text == "state 1"
 
 def test_state_metadata_query():
-    state = StateClient("agent")
+    state = StateClient("test_agent")
     state.clear()
     state.add("hello", metadata={"tag": "tag1"})
     state.add("world", metadata={"tag": "tag1"})
@@ -63,14 +63,14 @@ def test_state_0():
     assert state[[1, 3, 4]][1].text == "text3"
 
 def test_state_1():
-    state = StateClient("agent")
+    state = StateClient("test_agent")
     state.clear()
     assert state.count() == 0
     state.add("aaaa")
     assert state.count() == 1
     
 def test_state_2():
-    state = StateClient("agent")
+    state = StateClient("test_agent")
     state_num = state.count()
     state.add("aaaa")
     assert state.count() == state_num + 1
@@ -78,18 +78,18 @@ def test_state_2():
     assert s[0].text == "aaaa"
 
 def test_state_3():
-    state = StateClient("agent")
+    state = StateClient("test_agent")
     state.clear()
     state.add("concurrent modular agent.")
     state.add("hell world")
     state.add("hogehoge")
     assert state.count() == 3
-    s = state.query("agent", max_count=1)
+    s = state.query("test_agent", max_count=1)
     assert len(s)== 1
     assert s[0].text == "concurrent modular agent."
     
 def test_state_4():
-    state = StateClient("agent")
+    state = StateClient("test_agent")
     state.clear()
     new_states = []
     for i in range(100):
@@ -101,13 +101,13 @@ def test_state_4():
     assert s[0].text == 'state new'
 
 def test_state_5():
-    state = StateClient("agent")
+    state = StateClient("test_agent")
     state.clear()
     s = state.get()
     assert len(s) == 0
 
 def test_state_6():
-    state = StateClient("agent")
+    state = StateClient("test_agent")
     state.clear()
     new_states = []
     for i in range(100):
@@ -119,7 +119,7 @@ def test_state_6():
     assert len(s) == 100
 
 # def test_state_huge_data():
-#     state = StateClient("agent")
+#     state = StateClient("test_agent")
 #     state.clear()
 #     new_states = []
 #     N = 10000
@@ -134,7 +134,7 @@ def test_state_6():
 
 import datetime
 def test_state_datetime_1():
-    state = StateClient("agent")
+    state = StateClient("test_agent")
     state.clear()
     state.add("3", timestamp=datetime.datetime(2025, 1, 3))
     state.add("1", timestamp=datetime.datetime(2025, 1, 1))
@@ -145,7 +145,7 @@ def test_state_datetime_1():
     assert s[2].text == "1"
 
 def test_state_datetime_2():
-    state = StateClient("agent")
+    state = StateClient("test_agent")
     state.clear()
     state.add("3", timestamp=3)
     state.add("1", timestamp=1)

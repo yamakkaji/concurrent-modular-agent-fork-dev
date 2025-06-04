@@ -20,8 +20,9 @@ class StateClient():
             embedding_function=self._embedding_function
         )
 
-    def _make_collection_name(self, agent_name):
-        return f"{__package__}-state-{agent_name}"
+    @staticmethod
+    def _make_collection_name(agent_name):
+        return f"{__package__.split('.')[0]}-state-{agent_name}"
     
     def add(self, 
             states:str|list, 
