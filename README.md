@@ -50,9 +50,11 @@ $ pip install -e ".[dev]"
 #### Test
 1. Start backend services.
 ```console
-$ python -m concurrent_modular_agent.backend start
+$ coma backend start
 ```
 *Note: You may need to run Docker before starting the backend services.*
+
+You can use the `start`, `stop`, and `restart` commands.
 
 2. Set the OpenAI API Key
 ```console
