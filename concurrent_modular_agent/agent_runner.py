@@ -5,7 +5,19 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 import sys
 import os
+import functools
+from .agent import AgentInterface
 
+
+def module_main(module_name):
+    def _module_main(f):
+        @functools.wraps(f)
+        def wrapper(*args, **kwargs):
+            agent = AgentInterface('myagent', module_name)
+            return f(agent)
+        wrapper.__module_main__ = True
+        return wrapper
+    return _module_main
 
 def find_module_main_function(script_path):
     spec = importlib.util.spec_from_file_location("module.name", script_path)
@@ -29,7 +41,7 @@ class ScriptReloader(FileSystemEventHandler):
             self.process.terminate()
             self.process.wait()
         # print(f"Starting script: {self.script_path}")
-        self.process = subprocess.Popen([sys.executable, '-m' 'concurrent_modular_agent.module_main_wrapper', self.script_path])
+        self.process = subprocess.Popen([sys.executable, '-m' 'concurrent_modular_agent.entrypoint', self.script_path])
 
     def on_modified(self, event):
         print(f"Detected change in {self.script_path}")

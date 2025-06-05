@@ -10,6 +10,4 @@ def test2(agent:coma.AgentInterface):
         agent.state.add(f'user_message:{m}')
         agent.message.send("chat", 'reply')  # send signal to chat module
         time.sleep(3)
-
-        
         

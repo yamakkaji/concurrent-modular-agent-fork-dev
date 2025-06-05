@@ -2,7 +2,7 @@ import sys
 from unittest.mock import MagicMock, patch
 
 from concurrent_modular_agent import module_main, AgentInterface
-from concurrent_modular_agent.module_runner import find_module_main_function
+from concurrent_modular_agent.agent_runner import find_module_main_function
 
 ### 1. `find_module_main_function` のテスト
 def test_find_module_main_function():
