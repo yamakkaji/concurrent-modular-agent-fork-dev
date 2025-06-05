@@ -99,8 +99,33 @@ Any edits made to files in the folder are reflected immediately without needing 
 
 
 
-### New CLI interface
+### `coma` CLI 
 
 ```console
-$ coma examples/project_interface/chat
+$ coma
+Usage: coma [OPTIONS] COMMAND [ARGS]...
+
+  CLI tool for concurrent modular agent
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  backend  Backend management commands
+  memory   Memory management commands
+  run      Run the agent with the specified project directory
+```
+
+```console
+$ coma memory
+Usage: coma memory [OPTIONS] COMMAND [ARGS]...
+
+  Memory management commands
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  ls  List memory contents
+  rm  Delete memory with the specified name
 ```
