@@ -20,18 +20,38 @@ def test_memory_delete():
     assert "test_name3" in memory_list, "test_name3 not found in memory list before deletion"    
     
     # Test deletion of an existing memory
-    StateClient.delete("test_name3")
+    StateClient.delete_by_name("test_name3")
     memory_list = StateClient.get_all_names()
     assert "test_name3" not in memory_list, "test_name3 found in memory list after deletion"
     
     # Test deletion of a non-existent memory
     with pytest.raises(ValueError):
-        StateClient.delete("test_name3")
-        
+        StateClient.delete_by_name("test_name3")
 
-# def test_memory_backup():
-    # state = StateClient("test_name4")
-    # state.add("key1", "value1")
-    # state.add("key2", "value2")
-    # file_path = tempfile.NamedTemporaryFile(delete=False).name
-    # utils.backup_memory("test_name4", file_path)
+
+import numpy as np
+import json
+import pickle
+
+def test_memory_backup():
+    state = StateClient("test_name4")
+    state.clear()
+    for i in range(3):
+        state.add("test {i}")
+    file_path = tempfile.NamedTemporaryFile(delete=False).name
+    state.backup(file_path+".json")
+    state.backup(file_path+".pkl")
+    
+    restored_state_1 = json.load(open(file_path+".json", "r"))
+    restored_state_2 = pickle.load(open(file_path+".pkl", "rb"))
+    original_state = state.get(max_count=1000, reverse=True)
+    # 元のstateと復元されたstateの比較
+    for i in range(len(original_state)):
+        assert original_state[i].text == restored_state_1['documents'][i], f"Document mismatch at index {i}"
+        assert original_state[i].text == restored_state_2['documents'][i], f"Document mismatch at index {i}"
+        assert np.all(original_state[i].vector == np.array(restored_state_1['embeddings'][i])), f"Embedding mismatch at index {i}"
+        assert np.all(original_state[i].vector == np.array(restored_state_2['embeddings'][i])), f"Embedding mismatch at index {i}"
+        assert original_state[i].timestamp == restored_state_1['metadatas'][i]['timestamp'], f"Timestamp mismatch at index {i}"
+        assert original_state[i].timestamp == restored_state_2['metadatas'][i]['timestamp'], f"Timestamp mismatch at index {i}"
+        assert original_state[i].id == restored_state_1['ids'][i], f"ID mismatch at index {i}"
+        assert original_state[i].id == restored_state_2['ids'][i], f"ID mismatch at index {i}"

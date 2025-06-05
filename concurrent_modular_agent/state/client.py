@@ -1,4 +1,4 @@
-import os, datetime, uuid
+import os, datetime, uuid, pickle, json
 import numpy as np
 from loguru import logger
 import chromadb
@@ -7,6 +7,14 @@ from dataclasses import dataclass
 import warnings
 import datetime
 from .state import State
+
+
+def _convert_ndarrays_to_lists(data):
+    # embeddingsをlistに変換
+    if "embeddings" in data and data["embeddings"] is not None:
+        data["embeddings"] = [e.tolist() if isinstance(e, np.ndarray) else e for e in data["embeddings"]]
+    return data
+
 
 class StateClient():
     def __init__(self, agent_name, module_name:str=None):
@@ -140,6 +148,23 @@ class StateClient():
         warnings.warn("The 'retrieve' method is deprecated, use 'query' method instead.", DeprecationWarning)
         return self.query(query_text=query_text, max_count=max_count, metadata=metadata)
 
+    def backup(self, file_path:str):
+        all_docs = self._chromadb_collection.get(include=["metadatas", "documents", "embeddings"])
+
+        if file_path.endswith(".pkl") or file_path.endswith(".pickle"):
+            # バイナリ形式で保存
+            with open(file_path, "wb") as f:
+                pickle.dump(all_docs, f)
+        elif file_path.endswith(".json"):
+            # numpy配列をlistに変換
+            all_docs = _convert_ndarrays_to_lists(all_docs)
+            # JSONファイルに保存
+            with open(file_path, "w") as f:
+                json.dump(all_docs, f, ensure_ascii=False, indent=2)        
+        else:
+            raise ValueError("Unsupported file format. Use .pkl, .pickle, or .json.")
+
+
     @staticmethod
     def get_all_names():
         chromadb_client = chromadb.HttpClient(host='localhost', port=8000)
@@ -151,7 +176,7 @@ class StateClient():
         return agent_memory_list
 
     @staticmethod
-    def delete(name):
+    def delete_by_name(name):
         chromadb_client = chromadb.HttpClient(host='localhost', port=8000)
         collection_name = StateClient._convert_agent_name_2_collection_name(name)
         try:
