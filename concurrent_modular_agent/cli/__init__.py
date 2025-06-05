@@ -63,6 +63,15 @@ def ls():
     for memory in memory_list:
         print(memory)
 
+@memory.command()
+@click.argument('name')
+def rm(name):
+    """Delete memory with the specified name"""
+    try:
+        coma_utils.delete_memory(name)
+        print(f"Memory '{name}' deleted successfully.")
+    except ValueError as e:
+        print(e)
 
 def main():
     cli()

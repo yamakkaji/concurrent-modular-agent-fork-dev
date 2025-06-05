@@ -16,13 +16,20 @@ class StateClient():
             model_name="text-embedding-3-small"
         )
         self._chromadb_collection = self._chromadb_client.get_or_create_collection(
-            self._make_collection_name(agent_name),
+            self._convert_agent_name_2_collection_name(agent_name),
             embedding_function=self._embedding_function
         )
 
     @staticmethod
-    def _make_collection_name(agent_name):
+    def _convert_agent_name_2_collection_name(agent_name):
         return f"{__package__.split('.')[0]}-state-{agent_name}"
+    
+    @staticmethod
+    def _convert_collection_name_2_agent_name(collection_name):
+        if collection_name.startswith(f"{__package__.split('.')[0]}-state-"):
+            return collection_name.replace(f"{__package__.split('.')[0]}-state-", "")
+        else:
+            raise ValueError(f"Invalid collection name: {collection_name}. It should start with '{__package__.split('.')[0]}-state-'")
     
     def add(self, 
             states:str|list, 
