@@ -1,17 +1,16 @@
-# Welcome to MkDocs
+# Concurrent Modular Agent Documentation
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+Version: 0.0.0
 
-## Commands
+For full documentation visit [mkdocs.org](https://www.mkdocs.org). 
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+Concurrent Modular Agent (CoMA) is a framework for building modular agents that can work concurrently. It allows developers to create agents that can perform multiple things simultaneously as concurrent modules. This makes the way of building agents a bit different from the traditional way of building agents as workflows. 
 
-## Project layout
+To get started with CoMA, you can follow the steps in [Getting Started](./getting-started/getting-started.md).
+
+<!-- ## Project layout
 
     mkdocs.yml    # The configuration file.
     docs/
         index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+        ...       # Other markdown pages, images and other files. -->
