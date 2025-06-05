@@ -1,30 +1,11 @@
 import subprocess
 import time
+import importlib.util
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 import sys
-import importlib.util
 import os
-import functools
-from concurrent_modular_agent import Agent, StateClient, MessageClient
 
-
-class AgentInterface:
-    def __init__(self, agent_name, module_name):
-        self.agent_name = agent_name
-        self.module_name = module_name
-        self.state = StateClient(agent_name, module_name)
-        self.message = MessageClient(agent_name, module_name)
-
-def module_main(module_name):
-    def _module_main(f):
-        @functools.wraps(f)
-        def wrapper(*args, **kwargs):
-            agent = AgentInterface('myagent', module_name)
-            return f(agent)
-        wrapper.__module_main__ = True
-        return wrapper
-    return _module_main
 
 def find_module_main_function(script_path):
     spec = importlib.util.spec_from_file_location("module.name", script_path)
@@ -35,6 +16,7 @@ def find_module_main_function(script_path):
         if callable(func) and getattr(func, "__module_main__", False):
             return func
     return None
+
 
 class ScriptReloader(FileSystemEventHandler):
     def __init__(self, script_path):
@@ -47,7 +29,7 @@ class ScriptReloader(FileSystemEventHandler):
             self.process.terminate()
             self.process.wait()
         # print(f"Starting script: {self.script_path}")
-        self.process = subprocess.Popen([sys.executable, '-m' 'concurrent_modular_agent.module_runner', self.script_path])
+        self.process = subprocess.Popen([sys.executable, '-m' 'concurrent_modular_agent.module_main_wrapper', self.script_path])
 
     def on_modified(self, event):
         print(f"Detected change in {self.script_path}")
@@ -81,14 +63,3 @@ def start_agent(project_dir):
         for observer in watchdog_observers:
             observer.join()
 
-def main():
-    if len(sys.argv) < 2:
-        print("Usage: python watch_and_run.py <script_to_watch.py>")
-        sys.exit(1)
-
-    script_to_watch = sys.argv[1]
-    start_agent(script_to_watch)
-
-
-if __name__ == "__main__":
-    main()

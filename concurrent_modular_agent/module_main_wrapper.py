@@ -1,7 +1,6 @@
 import sys
-import importlib.util
+from .runner import find_module_main_function
 
-from .cli import find_module_main_function
 
 if __name__ == "__main__":
     script_path = sys.argv[1]
