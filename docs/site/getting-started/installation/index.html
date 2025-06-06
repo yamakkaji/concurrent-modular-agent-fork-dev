@@ -219,6 +219,28 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Concepts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
     
     
     
@@ -228,10 +250,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
@@ -244,8 +266,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Getting Started
           </label>
@@ -440,37 +462,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#test" class="md-nav__link">
+  <a href="#testing-your-installation" class="md-nav__link">
     <span class="md-ellipsis">
-      Test
+      Testing Your Installation
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Test">
+    <nav class="md-nav" aria-label="Testing Your Installation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#1-start-backend-services" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Start backend services.
+      1. Start Backend Services
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-set-the-openai-api-key" class="md-nav__link">
+  <a href="#2-set-your-openai-api-key" class="md-nav__link">
     <span class="md-ellipsis">
-      2. Set the OpenAI API Key
+      2. Set Your OpenAI API Key
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-run-test" class="md-nav__link">
+  <a href="#3-run-tests" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Run test.
+      3. Run Tests
     </span>
   </a>
   
@@ -478,6 +500,15 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
   
 </li>
       
@@ -502,44 +533,45 @@
 <p>Before installing CoMA, ensure you have the following prerequisites:</p>
 <ul>
 <li>
-<p>Python 3.12 or later</p>
+<p><strong>Python 3.12 or later</strong></p>
 <p>CoMA uses multiprocessing and asyncio, which are fully supported in Python 3.12 and later versions.</p>
 </li>
 <li>
-<p>Docker </p>
-<p>CoMA uses Docker to run modules (specifically, <code>MQTT</code> for messaging and <code>ChromaDB</code> for vector storage). Ensure you have Docker installed and running on your machine. Please refer to the <a href="https://docs.docker.com/get-docker/">Docker installation guide</a> for instructions.</p>
+<p><strong>Docker</strong></p>
+<p>CoMA uses Docker to run modules (specifically, MQTT for messaging and ChromaDB for vector storage). Ensure you have Docker installed and running on your machine. Please refer to the <a href="https://docs.docker.com/get-docker/">Docker installation guide</a> for instructions.</p>
 </li>
 </ul>
 <h2 id="setup">Setup</h2>
-<p>It is recommended to use a virtual environment. </p>
+<p>It is recommended to use a virtual environment:</p>
 <pre><code class="language-console">$ python -m venv .venv
 $ source .venv/bin/activate
 </code></pre>
-<p>Install the required packages.</p>
+<p>Install the required packages:</p>
 <pre><code class="language-console">$ pip install -e &quot;.[dev]&quot;
 </code></pre>
-<h2 id="test">Test</h2>
-<h3 id="1-start-backend-services">1. Start backend services.</h3>
+<h2 id="testing-your-installation">Testing Your Installation</h2>
+<h3 id="1-start-backend-services">1. Start Backend Services</h3>
 <pre><code class="language-console">$ coma backend start
 </code></pre>
-<p><strong>Note: You need to run Docker before starting the backend services.</strong></p>
-<p><em>Tips: for MacOS users, you need to run the Docker Desktop application. Not CLI commands.</em></p>
-<p>You can use the <code>start</code>, <code>stop</code>, and <code>restart</code> commands to manage the backend services. For example, to stop the backend services, run:</p>
+<p><strong>Note:</strong> You need to run Docker before starting the backend services.</p>
+<p><strong>Tip for macOS users:</strong> You need to run the Docker Desktop application, not CLI commands.</p>
+<p>You can use the <code>start</code>, <code>stop</code>, and <code>restart</code> commands to manage the backend services. For example, to stop the backend services:</p>
 <pre><code class="language-console">$ coma backend stop
 </code></pre>
-<h3 id="2-set-the-openai-api-key">2. Set the OpenAI API Key</h3>
-<pre><code class="language-console">$ export OPENAI_API_KEY=&quot;your api key&quot;
+<h3 id="2-set-your-openai-api-key">2. Set Your OpenAI API Key</h3>
+<pre><code class="language-console">$ export OPENAI_API_KEY=&quot;your_api_key&quot;
 </code></pre>
-<h3 id="3-run-test">3. Run test.</h3>
+<h3 id="3-run-tests">3. Run Tests</h3>
 <pre><code class="language-console">$ pytest
 </code></pre>
-<p>If you pass each test, you should see output similar to:</p>
+<p>If all tests pass, you should see output similar to:</p>
 <pre><code class="language-console">....
 </code></pre>
-<p>Otherwise, you will see output indicating which tests failed or encountered errors.</p>
+<p>If tests fail, you will see output indicating which tests failed or encountered errors:</p>
 <pre><code class="language-console">..!!!
 </code></pre>
-<p>Now you are ready to start building your agential systems with CoMA!</p>
+<h2 id="next-steps">Next Steps</h2>
+<p>Now you're ready to start building your agent systems with CoMA! Continue to the next section to learn how to create your first project.</p>
 <div style="text-align: center; margin: 2rem 0;">
     <a href="../creating-a-new-project" class="indigo-button">
         🚀 Creating Projects

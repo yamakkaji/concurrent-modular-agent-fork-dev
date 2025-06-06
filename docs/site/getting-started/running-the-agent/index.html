@@ -219,6 +219,28 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Concepts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
     
     
     
@@ -228,10 +250,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
@@ -244,8 +266,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Getting Started
           </label>
@@ -430,7 +452,23 @@
 
 
 <h1 id="4-running-the-agent">4. Running the Agent</h1>
-<p>Let's run union of modules you have created and connected as an agent. </p>
+<p>Let's run the assembly of the modules you have created as an agent!</p>
+<p>Actually, running the agent is as simple as running a single command. </p>
+<p>First, make sure you have directory structure like this:</p>
+<pre><code>my_project/
+└── agent1
+    ├── user_input.py
+    ├── chat.py
+    └── memory_organizer.py
+</code></pre>
+<p>If you have skipped the previous steps, you can go to <code>examples/coma_interface</code> directory.</p>
+<p>Also, Docker should be running on your machine, as CoMA uses Docker to run the backend services.</p>
+<pre><code class="language-shell">coma backend start
+</code></pre>
+<p>Then, run the following command in the <code>my_project</code> directory:</p>
+<pre><code class="language-shell">coma run agent1
+</code></pre>
+<p>This command will start the agent named <code>agent1</code>, which will automatically load the modules you have created in the <code>agent1</code> directory. </p>
 
 
 

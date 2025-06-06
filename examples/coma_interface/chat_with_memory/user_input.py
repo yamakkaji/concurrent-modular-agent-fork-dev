@@ -10,4 +10,4 @@ def mod_user_input(agent: coma.AgentInterface):
             continue
         agent.state.add(f"user_message:{m}")
         agent.message.send("chat", "reply to user")  # send message to the "chat" module
-        time.sleep(1)                        # wait for 3 seconds before next input
+        time.sleep(3)                        # wait for 3 seconds before next input
