@@ -1,1 +1,15 @@
-site_name: My Docs
+site_name: CoMA
+theme:
+  name: material
+  palette:
+    scheme: indigo
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Overview: getting-started/getting-started
+    - Installation: getting-started/installation
+    - Creating a New Project: getting-started/creating-a-new-project
+    - Creating Modules: getting-started/creating-modules
+    - Running the Agent: getting-started/running-the-agent
+  - API Reference: api.md
