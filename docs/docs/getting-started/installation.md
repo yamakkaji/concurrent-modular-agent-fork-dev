@@ -24,28 +24,41 @@ $ pip install -e ".[dev]"
 ```
 
 ## Test
-Start backend services.
+### 1. Start backend services.
 ```console
 $ coma backend start
 ```
-**Note: You may need to run Docker before starting the backend services.**
+**Note: You need to run Docker before starting the backend services.**
 
-You can use the `start`, `stop`, and `restart` commands.
+*Tips: for MacOS users, you need to run the Docker Desktop application. Not CLI commands.*
 
-Set the OpenAI API Key
+You can use the `start`, `stop`, and `restart` commands to manage the backend services. For example, to stop the backend services, run:
+```console
+$ coma backend stop
+```
+
+### 2. Set the OpenAI API Key
 ```console
 $ export OPENAI_API_KEY="your api key"
 ```
 
-Run test.
+### 3. Run test.
 ```console
 $ pytest
+```
+If you pass each test, you should see output similar to:
+```console
+....
+```
+Otherwise, you will see output indicating which tests failed or encountered errors.
+```console
+..!!!
 ```
 
 Now you are ready to start building your agential systems with CoMA!
 
 <div style="text-align: center; margin: 2rem 0;">
-    <a href="../creating-a-new-project/" class="indigo-button">
+    <a href="../creating-a-new-project" class="indigo-button">
         🚀 Creating Projects
     </a>
 </div>
