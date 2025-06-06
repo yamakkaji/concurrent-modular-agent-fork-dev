@@ -1,21 +1,18 @@
 # Getting Started
 
-We will walk through the steps to get started with CoMA, including installation, creating a new project, creating modules, connecting modules, and running the agent. 
+This guide walks you through the essential steps to get started with CoMA: installation, project setup, module creation, module connections, and running your agent.
 
-Here is the table of contents for this guide:
+## Table of Contents
 
 1. [Installation](./installation.md)
-
 2. [Creating a New Project](./creating-a-new-project.md)
-
 3. [Creating Modules](./creating-modules.md)
-
 4. [Running the Agent](./running-the-agent.md)
 
-First, we will cover the installation process.
+Let's begin with the installation process.
 
 <div style="text-align: center; margin: 2rem 0;">
-    <a href="../installation.md" class="indigo-button">
+    <a href="../installation" class="indigo-button">
         🚀 Start Installation
     </a>
 </div>

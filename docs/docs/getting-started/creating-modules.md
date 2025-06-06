@@ -1,34 +1,38 @@
 # 3. Creating Modules (CoMA Interface)
 
-## Make a modeule
+## Building Your First Modules
 
-In this section, we will create three simple modules that well explain the basic concepts of CoMA modules.
-These modules will be used to build a simple chat application that can respond to user input.
-We will create the following modules:
+In this section, we'll create three simple modules that demonstrate the core concepts of CoMA modules. These modules will work together to build a simple chat application that responds to user input.
 
-1. `user_input`: A module that receives user input and sends it to the `chat` module.
+We'll create the following modules:
 
-2. `chat`: A module that receives messages from the `user_input` module and responds to the user.
-
-3. `memory_organizer`: A module that organizes the memory of the agent.
+1. **`user_input`**: Receives user input and sends it to the `chat` module
+2. **`chat`**: Receives messages from the `user_input` module and responds to the user
+3. **`memory_organizer`**: Organizes the agent's memory in the background
 
 ![Overview of a simple CoMA agent](../img/my-first-coma.png)
 
-### Make a new project directory with agent directory
-To start your first project, create a directory named `my_project` and `my_project/agent1` or do 
+## Setting Up Your Project
+
+### Create the Project Structure
+
+First, create a directory for your project and agent:
+
 ```shell
 mkdir -p my_project/agent1
 ```
 
-### Make a new module file
-Next, create a file named `user_input.py` in the `my_project/agent1` directory. This file will define your first module, which is a simple chat module that can respond to user input.
+### Create Your First Module File
+
+Create a file named `user_input.py` in the `my_project/agent1` directory:
 
 ```shell
 touch my_project/agent1/user_input.py
 ```
 
-## Make a new module definition
-Now, open `user_input.py` in your favorite text editor and add the following code:
+## Creating the User Input Module
+
+Open `user_input.py` in your text editor and add the following code:
 
 ```python
 # my_project/agent1/user_input.py
@@ -36,7 +40,7 @@ import time
 import concurrent_modular_agent as coma
 
 @coma.module_main('user_input')
-def mod_user_input(agent:coma.AgentInterface):
+def mod_user_input(agent: coma.AgentInterface):
     while True:                              # continuously run this module
         m = input("User: ")
         if len(m) == 0 or m.isspace() or m is None:  # if the user input is empty, skip to the next iteration
@@ -46,128 +50,118 @@ def mod_user_input(agent:coma.AgentInterface):
         time.sleep(3)                        # wait for 3 seconds before next input
 ```
 
-Overall, this code defines a module named `user_input` that continuously receives user inputs. When the user enters a message (`m` in the code above), it adds the message to the agent's *state* and sends a message to the "`chat`" module to reply. 
+This module continuously receives user input. When a user enters a message, it:
+1. Adds the message to the agent's **state** (shared memory)
+2. Sends a message to the `chat` module to generate a reply
 
-Let's disect this code to get a sense of how CoMA modules work.
+### Understanding the Module Code
 
-### Disecting the module code
+Let's examine the key components:
 
-The first line imports the `concurrent_modular_agent` package, which provides the necessary functions and classes to define and run CoMA modules.
-
-The `@coma.module_main(module_name)` decorator instantiate an `AgentInterface` object with the specified name of the module. This object provides basic functionalities for modules, state IO and messaging IO. Using this decorator turns a function which takes an `AgentInterface` object as an argument into a module function. Notice that the `module_name` is specified as `'user_input'`, which can be different from the file name or the function name. 
-
+**Module Declaration:**
 ```python
+@coma.module_main('user_input')
+def mod_user_input(agent: coma.AgentInterface):
+```
+The `@coma.module_main(module_name)` decorator creates an `AgentInterface` object with the specified module name. This object provides access to state management and messaging functionality.
 
-### Module function
-The `mod_user_input` function is the main function of the module. Let's break down its components:
+**Continuous Operation:**
 ```python
 while True:
     ...
     time.sleep(3)
 ```
-This loop ensures that the module runs continuously, allowing it to receive user inputs repeatedly. The `time.sleep(3)` line introduces a 3-second delay between each input, preventing the module from overwhelming the user with prompts.
+This loop keeps the module running continuously, with a 3-second delay between inputs to prevent overwhelming the user.
 
+**Input Handling:**
 ```python
 m = input("User: ")
 if len(m) == 0 or m.isspace() or m is None:
     continue
 ```
-This line receives input from the user. The input is stored in the variable `m`. 
-If the user input is empty (i.e., the user just pressed Enter without typing anything), only whitespace, or `None`, the module skips to the next iteration of the loop, effectively ignoring empty inputs.
+The module captures user input and skips empty or whitespace-only entries.
 
+**State Management:**
 ```python
 agent.state.add(f'user_message:{m}')
 ```
-This line adds the user message to the agent's state. 
-The **state** is a shared memory space where modules can store and retrieve information. 
-The `AgentInterface.state` object provides access to this state. 
-The `AgentInterface.state.add` method is used to store new information in the state.
-At this time, the received user input `user_message:{m}`, where `{m}` is the actual user input, is added to the state. 
+The **state** is a shared memory space where modules store and retrieve information. Here, we add the user's message with a `user_message:` prefix.
 
+**Inter-Module Communication:**
 ```python
-agent.message.send("chat", "reply")
+agent.message.send("chat", "reply to user")
 ```
-This line sends a message "`reply`" to the "`chat`" module. 
-The `message` object allows modules to communicate with each other by sending and receiving messages. 
-At this time, the `send` method is used to send a message to the "`chat`" module, which is expected to handle the reply.
+This sends a message to the `chat` module, triggering it to generate a response.
 
-## Make a chat module
-Next, create a file named `chat.py` in the `my_project/agent1` directory. This file will define your second module, which is a simple chat module that can respond to user input.
+## Creating the Chat Module
+
+Create the chat module file:
 
 ```shell
 touch my_project/agent1/chat.py
 ```
 
-Now, open `chat.py` in your favorite text editor and add the following code:
+Add the following code to `chat.py`:
 
 ```python
 # my_project/agent1/chat.py
+import concurrent_modular_agent as coma
+from openai import OpenAI
+
 @coma.module_main('chat')
-def mod_response_to_user(agent:coma.AgentInterface):
+def mod_response_to_user(agent: coma.AgentInterface):
     openai_client = OpenAI()
     while True:
         m = agent.message.receive()
         if m is None:
             continue  # If no message is received, skip to the next iteration
+        
         messages = [
             {"role": "developer", "content": "You are a module of an autonomous agent. Your job is to respond to the user's input. You are expected to talk with the user. You are not an AI assistant, so feel free to talk freely. You do not need to help humans. You received the following messages from the user, other modules. Talk to the user in a natural way."},
         ]
+        
         for s in agent.state.get(max_count=10).texts[::-1]:
             if s.startswith("user_message:"):
                 messages.append({"role": "user", "content": s[len("user_message:"):]})
             elif s.startswith("assistant_message:"):
                 messages.append({"role": "assistant", "content": s[len("assistant_message:"):]})
-        messages.append({"role": "assistant", "content": f"{m}})
+        
+        messages.append({"role": "assistant", "content": f"{m}"})
 
         completion = openai_client.chat.completions.create(
             model="gpt-4o",
             messages=messages,
         )
+        
         output_message = completion.choices[0].message.content
         print(f'ChatBot: {output_message}')
         agent.state.add(f"assistant_message:{output_message}")
-
+        
         agent.message.send("user_input", 'chat response finished')
 ```
 
-### Disecting the chat module code
-The basics are similar to the `user_input` module. 
-The module is defined with the `@coma.module_main('chat')` decorator, which allows it to be recognized as a module named "`chat`". 
-The `mod_response_to_user` function is the main function of the module. 
-It continuously listens for messages from the `user_input` module and sends responses back to the module like the last module.
+### Understanding the Chat Module
 
-```python
-@coma.module_main('chat')
-def mod_response_to_user(agent:coma.AgentInterface):
-    ...
-    while True:
-        m = agent.message.receive()               # receive message from user_input module
-        ...
-        agent.message.send("user_input", 'chat response finished') # send message to user_input module to tell it finished processing
-```
-
-There are four new things in this module code.
-The first is when the module activates. 
+**Message-Driven Activation:**
 ```python
 while True:
     m = agent.message.receive()
     if m is None:
-        continue  # If no message is received, skip to the next iteration
+        continue
 ```
-The module runs continuously, waiting for messages from the `user_input` module.
-If the module receives a message, it activates and processes the message to respond to the user.
+The module waits for messages from other modules (like `user_input`) before activating.
 
-The second is LLM interface. At this moment, we use *OpenAI*'s API to interact with the LLM.
+**LLM Integration:**
 ```python
 openai_client = OpenAI()
-...
-        completion = openai_client.chat.completions.create(
-            model="gpt-4o",
-            messages=messages,
-        )
+completion = openai_client.chat.completions.create(
+    model="gpt-4o",
+    messages=messages,
+)
 ```
+The module uses OpenAI's API to generate responses.
 
-The third is state retrieval. 
+**State Retrieval:**
 ```python
 for s in agent.state.get(max_count=10).texts[::-1]:
     if s.startswith("user_message:"):
@@ -175,98 +169,83 @@ for s in agent.state.get(max_count=10).texts[::-1]:
     elif s.startswith("assistant_message:"):
         messages.append({"role": "assistant", "content": s[len("assistant_message:"):]})
 ```
-We retrieve the latest state using `AgentInterface.state.get()`, which returns the most recent state of the agent. The `texts` property of the state object contains all text entries in the state, and we reverse it to process the most recent messages first.
+The module retrieves recent conversation history from the shared state to provide context to the LLM.
 
-The obtained state is checked for messages that start with `user_message:` or `assistant_message:`. 
-If the message starts with `user_message:`, it is treated as a user message, and if it starts with `assistant_message:`, it is treated as an assistant message. 
-The messages are then appended to the `messages` list, which will be sent to the LLM.
-
-The fourth is output to the user.
+**Response Output:**
 ```python
 output_message = completion.choices[0].message.content
 print(f'ChatBot: {output_message}')
-agent.state.add(f'assistant_message:{output_message}')
+agent.state.add(f"assistant_message:{output_message}")
 ```
-The output from the LLM is stored in the `output_message` variable, which is then printed to the console. 
-The output message is also added to the agent's state with the prefix `assistant_message:`.
+The generated response is displayed to the user and stored in the shared state.
 
-In the end, the module sends a message to the `user_input` module to signal that it has finished processing the input and is ready for the next message.
-```python
-agent.message.send("user_input", 'finish')
-```
+## Creating the Memory Organizer Module
 
-## Make a memory organizer module
-Next, create a file named `memory_organizer.py` in the `my_project/agent1` directory. This file will define your third module, which is a simple memory organizer module that organizes the memory of the agent.
+Create the memory organizer file:
 
 ```shell
 touch my_project/agent1/memory_organizer.py
 ```
-Now, open `memory_organizer.py` in your favorite text editor and add the following code:
+
+Add the following code:
 
 ```python
 # my_project/agent1/memory_organizer.py
 import time
 import random
-
 import concurrent_modular_agent as coma
-from concurrent_modular_agent import OpenAI
+from openai import OpenAI
 
 @coma.module_main('memory_organizer')
 def mod_organize_memory(agent: coma.AgentInterface):
     openai_client = OpenAI()
     while True:
-        m = agent.message.receive()
+        time.sleep(100)  # Wait for 100 seconds between memory organization cycles
+        
         messages = [
-            {"role": "developer", "content": "You are a module of an autonomous agent. Your job is to organize the memory of the agent. You are expected to organize the memory of the agent in a way that is helpfull to recall the past and what the agent had thought. You will be given a list of memory of received the following messages from the user, other modules."},
+            {"role": "developer", "content": "You are a module of an autonomous agent. Your job is to organize the memory of the agent. You are expected to organize the memory of the agent in a way that is helpful to recall the past and what the agent had thought. You will be given a list of memory entries from the user and other modules."},
         ]
+        
         organizing_range = random.randint(5, 10)  # Randomly decide how many messages to organize
-        for s in agent.state.get(max_count=10).texts[::-organizing_range]:
+        recent_states = agent.state.get(max_count=organizing_range).texts[-organizing_range:]
+        
+        for s in recent_states:
             if s.startswith("user_message:"):
                 messages.append({"role": "user", "content": s[len("user_message:"):]})
             elif s.startswith("assistant_message:"):
                 messages.append({"role": "assistant", "content": s[len("assistant_message:"):]})
-        messages.append({"role": "assistant", "content": f"{m}})
         
         completion = openai_client.chat.completions.create(
-            model="gpt-4.1-nano-2025-04-14",
+            model="gpt-4o-mini",
             messages=messages,
         )
+        
         output_message = completion.choices[0].message.content
-        agent.state.add(f'assistant_message:{output_message}')
-
-        time.sleep(100)  # Wait for 3 seconds before next input
+        agent.state.add(f'memory_summary:{output_message}')
 ```
 
-### Disecting the memory organizer module code
-The `memory_organizer` module is similar to the `chat` module, but it has a different purpose.
-It organizes the memory of the agent stored in the state.
+### Understanding the Memory Organizer
 
-The main part of the module is collect a random numbers of states from the shared memory and send them to the LLM to organize the memory.
-
-This part collects 5~10 states from the agent's memory:
+**Background Operation:**
 ```python
-organizing_range = random.randint(5, 10)  # Randomly decide how many messages to organize
-for s in agent.state.get(max_count=10).texts[::-organizing_range]:
-    if s.startswith("user_message:"):
-        messages.append({"role": "user", "content": s[len("user_message:"):]})
-    elif s.startswith("assistant_message:"):
-        messages.append({"role": "assistant", "content": s[len("assistant_message:"):]})
-messages.append({"role": "assistant", "content": f"{m}})
+while True:
+    time.sleep(100)  # Wait for 100 seconds between cycles
 ```
+This module runs independently in the background, periodically organizing the agent's memory.
 
-The output of the LLM is stored to memory as an `assistant_message`:
+**Random Memory Selection:**
 ```python
-output_message = completion.choices[0].message.content
-agent.state.add(f'assistant_message:{output_message}')
+organizing_range = random.randint(5, 10)
+recent_states = agent.state.get(max_count=organizing_range).texts[::-1]
 ```
+The module randomly selects 5-10 recent memory entries to organize, adding variety to the memory organization process.
 
-Notice that the `memory_organizer` module does not send any message to other modules.
+**Concurrent Operation:**
+The `memory_organizer` module runs concurrently with the other modules. While `user_input` and `chat` modules interact directly with each other, the memory organizer works independently to maintain and organize the agent's memory in the background.
 
-### Concurrency of memory organizer module
-The `memory_organizer` module is designed to run concurrently with the `user_input` and `chat` modules.
-This means that it can run in parallel with the other modules, allowing it to organize the memory of the agent while the user is interacting with the agent.
-Although both `user_input` and `chat` modules are designed to run continuously, `user_input` module will send messages only when the user inputs a message, and `chat` module will send messages only when it receives a message from the `user_input` module.
-The `memory_organizer` module will run continuously without activating. 
+## Next Steps
+
+Now that you've created your three modules, you're ready to run your first CoMA agent! Continue to the next section to learn how to execute your agent and see it in action.
 
 
 <div style="text-align: center; margin: 2rem 0;">

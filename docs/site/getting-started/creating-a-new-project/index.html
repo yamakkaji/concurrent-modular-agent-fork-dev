@@ -9,10 +9,6 @@
       
       
       
-        <link rel="prev" href="../installation/">
-      
-      
-        <link rel="next" href="../creating-modules/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -20,7 +16,7 @@
     
     
       
-        <title>Creating a New Project - CoMA</title>
+        <title>2. Creating a New Project - CoMA</title>
       
     
     
@@ -106,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Creating a New Project
+              2. Creating a New Project
             
           </span>
         </div>
@@ -221,23 +217,43 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Concepts
     
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
   
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
@@ -250,8 +266,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Getting Started
           </label>
@@ -264,7 +280,30 @@
   
   
     <li class="md-nav__item">
-      <a href="../installation/" class="md-nav__link">
+      <a href="../getting-started" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation" class="md-nav__link">
         
   
   
@@ -284,19 +323,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="." class="md-nav__link">
         
   
   
@@ -307,7 +337,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -320,7 +349,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../creating-modules/" class="md-nav__link">
+      <a href="../creating-modules" class="md-nav__link">
         
   
   
@@ -343,30 +372,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../connecting-modules/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Connecting Modules
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../running-the-agent/" class="md-nav__link">
+      <a href="../running-the-agent" class="md-nav__link">
         
   
   
@@ -431,6 +437,65 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#project-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Project Structure
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Project Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#coma-interface-project-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      CoMA Interface Project Structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-interface-project-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Python Interface Project Structure
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Started
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -446,10 +511,45 @@
 
 
 <h1 id="2-creating-a-new-project">2. Creating a New Project</h1>
-<p>Create a new project</p>
+<p>CoMA is designed with a project-oriented approach, where you create modules and assemble them into agents within a project. You can choose between two project styles:</p>
+<ol>
+<li>
+<p><strong>CoMA Interface Project</strong>: Write module definitions and run them as a single agent using the <code>coma run</code> command. This is the simplest way to use CoMA.</p>
+</li>
+<li>
+<p><strong>Python Interface Project</strong>: Write module and agent definitions and run multiple agents using the <code>python</code> command. This is the most flexible approach.</p>
+</li>
+</ol>
+<h2 id="project-structure">Project Structure</h2>
+<p>Regardless of the project style, you create a new project by simply making a directory.</p>
+<h3 id="coma-interface-project-structure">CoMA Interface Project Structure</h3>
+<p>For <strong>CoMA Interface Projects</strong>, the directory contains agent subdirectories, each storing the module definitions that comprise that agent:</p>
+<pre><code>sample_project/    # Project directory
+├── agent1/        # Agent directory
+│   ├── module1.py # Defines module1
+│   ├── module2.py # Defines module2
+│   └── module3.py # Defines module3
+└── agent2/        # Another agent directory
+    ├── module1.py # Defines module1
+    ├── module2.py # Defines module2
+    └── module3.py # Defines module3
+</code></pre>
+<h3 id="python-interface-project-structure">Python Interface Project Structure</h3>
+<p>For <strong>Python Interface Projects</strong>, the directory contains both module definitions and agent scripts:</p>
+<pre><code>sample_project/ # Project directory
+├── module1.py  # Defines module1
+├── module2.py  # Defines module2
+├── module3.py  # Defines module3
+├── agent1.py   # Defines an agent using modules 1, 2, and 3
+└── agent2.py   # Defines another agent using modules 1, 2, and 3
+</code></pre>
+<h2 id="getting-started">Getting Started</h2>
+<p>We'll begin with the <strong>CoMA Interface Project</strong> style, which is simpler and more straightforward for beginners. If you're already familiar with Python and want more flexibility, you can skip ahead to learn about the <strong>Python Interface Project</strong> style.</p>
+<h2 id="next-steps">Next Steps</h2>
+<p>Let's create your first CoMA project and start building modules!</p>
 <div style="text-align: center; margin: 2rem 0;">
-    <a href="../creating-modules/" class="indigo-button">
-        🚀 Creating Modules
+    <a href="../creating-modules" class="indigo-button">
+        🚀 Creating Modules (CoMA Interface)
     </a>
 </div>
 

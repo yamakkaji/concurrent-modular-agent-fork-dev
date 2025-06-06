@@ -9,8 +9,6 @@
       
       
       
-        <link rel="prev" href="../connecting-modules/">
-      
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -18,7 +16,7 @@
     
     
       
-        <title>Running the Agent - CoMA</title>
+        <title>4. Running the Agent - CoMA</title>
       
     
     
@@ -104,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Running the Agent
+              4. Running the Agent
             
           </span>
         </div>
@@ -219,23 +217,43 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Concepts
     
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
   
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
@@ -248,8 +266,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Getting Started
           </label>
@@ -262,7 +280,30 @@
   
   
     <li class="md-nav__item">
-      <a href="../installation/" class="md-nav__link">
+      <a href="../getting-started" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation" class="md-nav__link">
         
   
   
@@ -285,7 +326,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../creating-a-new-project/" class="md-nav__link">
+      <a href="../creating-a-new-project" class="md-nav__link">
         
   
   
@@ -308,7 +349,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../creating-modules/" class="md-nav__link">
+      <a href="../creating-modules" class="md-nav__link">
         
   
   
@@ -331,39 +372,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../connecting-modules/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Connecting Modules
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+      <a href="." class="md-nav__link">
         
   
   
@@ -374,7 +383,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -444,7 +452,23 @@
 
 
 <h1 id="4-running-the-agent">4. Running the Agent</h1>
-<p>Let's run union of modules you have created and connected as an agent. </p>
+<p>Let's run the assembly of the modules you have created as an agent!</p>
+<p>Actually, running the agent is as simple as running a single command. </p>
+<p>First, make sure you have directory structure like this:</p>
+<pre><code>my_project/
+└── agent1
+    ├── user_input.py
+    ├── chat.py
+    └── memory_organizer.py
+</code></pre>
+<p>If you have skipped the previous steps, you can go to <code>examples/coma_interface</code> directory.</p>
+<p>Also, Docker should be running on your machine, as CoMA uses Docker to run the backend services.</p>
+<pre><code class="language-shell">coma backend start
+</code></pre>
+<p>Then, run the following command in the <code>my_project</code> directory:</p>
+<pre><code class="language-shell">coma run agent1
+</code></pre>
+<p>This command will start the agent named <code>agent1</code>, which will automatically load the modules you have created in the <code>agent1</code> directory. </p>
 
 
 
