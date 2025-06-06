@@ -9,10 +9,6 @@
       
       
       
-        <link rel="prev" href="../creating-a-new-project/">
-      
-      
-        <link rel="next" href="../connecting-modules/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -20,7 +16,7 @@
     
     
       
-        <title>Creating Modules - CoMA</title>
+        <title>3. Creating Modules (CoMA Interface) - CoMA</title>
       
     
     
@@ -70,7 +66,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#3-creating-modules" class="md-skip">
+        <a href="#3-creating-modules-coma-interface" class="md-skip">
           Skip to content
         </a>
       
@@ -106,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Creating Modules
+              3. Creating Modules (CoMA Interface)
             
           </span>
         </div>
@@ -221,20 +217,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -250,7 +244,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Getting Started
@@ -264,7 +258,30 @@
   
   
     <li class="md-nav__item">
-      <a href="../installation/" class="md-nav__link">
+      <a href="../getting-started" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation" class="md-nav__link">
         
   
   
@@ -287,7 +304,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../creating-a-new-project/" class="md-nav__link">
+      <a href="../creating-a-new-project" class="md-nav__link">
         
   
   
@@ -307,19 +324,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="." class="md-nav__link">
         
   
   
@@ -330,7 +338,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -343,30 +350,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../connecting-modules/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Connecting Modules
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../running-the-agent/" class="md-nav__link">
+      <a href="../running-the-agent" class="md-nav__link">
         
   
   
@@ -431,6 +415,128 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#make-a-modeule" class="md-nav__link">
+    <span class="md-ellipsis">
+      Make a modeule
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Make a modeule">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#make-a-new-project-directory-with-agent-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Make a new project directory with agent directory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#make-a-new-module-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Make a new module file
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#make-a-new-module-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Make a new module definition
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Make a new module definition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#disecting-the-module-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Disecting the module code
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#make-a-chat-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      Make a chat module
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Make a chat module">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#disecting-the-chat-module-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Disecting the chat module code
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#make-a-memory-organizer-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      Make a memory organizer module
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Make a memory organizer module">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#disecting-the-memory-organizer-module-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Disecting the memory organizer module code
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concurrency-of-memory-organizer-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      Concurrency of memory organizer module
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -445,11 +551,226 @@
 
 
 
-<h1 id="3-creating-modules">3. Creating Modules</h1>
-<p>Connect your modules</p>
+<h1 id="3-creating-modules-coma-interface">3. Creating Modules (CoMA Interface)</h1>
+<h2 id="make-a-modeule">Make a modeule</h2>
+<p>In this section, we will create three simple modules that well explain the basic concepts of CoMA modules.
+These modules will be used to build a simple chat application that can respond to user input.
+We will create the following modules:</p>
+<ol>
+<li>
+<p><code>user_input</code>: A module that receives user input and sends it to the <code>chat</code> module.</p>
+</li>
+<li>
+<p><code>chat</code>: A module that receives messages from the <code>user_input</code> module and responds to the user.</p>
+</li>
+<li>
+<p><code>memory_organizer</code>: A module that organizes the memory of the agent.</p>
+</li>
+</ol>
+<p><img alt="Overview of a simple CoMA agent" src="../../img/my-first-coma.png" /></p>
+<h3 id="make-a-new-project-directory-with-agent-directory">Make a new project directory with agent directory</h3>
+<p>To start your first project, create a directory named <code>my_project</code> and <code>my_project/agent1</code> or do </p>
+<pre><code class="language-shell">mkdir -p my_project/agent1
+</code></pre>
+<h3 id="make-a-new-module-file">Make a new module file</h3>
+<p>Next, create a file named <code>user_input.py</code> in the <code>my_project/agent1</code> directory. This file will define your first module, which is a simple chat module that can respond to user input.</p>
+<pre><code class="language-shell">touch my_project/agent1/user_input.py
+</code></pre>
+<h2 id="make-a-new-module-definition">Make a new module definition</h2>
+<p>Now, open <code>user_input.py</code> in your favorite text editor and add the following code:</p>
+<pre><code class="language-python"># my_project/agent1/user_input.py
+import time
+import concurrent_modular_agent as coma
+
+@coma.module_main('user_input')
+def mod_user_input(agent:coma.AgentInterface):
+    while True:                              # continuously run this module
+        m = input(&quot;User: &quot;)
+        if len(m) == 0 or m.isspace() or m is None:  # if the user input is empty, skip to the next iteration
+            continue
+        agent.state.add(f&quot;user_message:{m}&quot;)
+        agent.message.send(&quot;chat&quot;, &quot;reply to user&quot;)  # send message to the &quot;chat&quot; module
+        time.sleep(3)                        # wait for 3 seconds before next input
+</code></pre>
+<p>Overall, this code defines a module named <code>user_input</code> that continuously receives user inputs. When the user enters a message (<code>m</code> in the code above), it adds the message to the agent's <em>state</em> and sends a message to the "<code>chat</code>" module to reply. </p>
+<p>Let's disect this code to get a sense of how CoMA modules work.</p>
+<h3 id="disecting-the-module-code">Disecting the module code</h3>
+<p>The first line imports the <code>concurrent_modular_agent</code> package, which provides the necessary functions and classes to define and run CoMA modules.</p>
+<p>The <code>@coma.module_main(module_name)</code> decorator instantiate an <code>AgentInterface</code> object with the specified name of the module. This object provides basic functionalities for modules, state IO and messaging IO. Using this decorator turns a function which takes an <code>AgentInterface</code> object as an argument into a module function. Notice that the <code>module_name</code> is specified as <code>'user_input'</code>, which can be different from the file name or the function name. </p>
+<pre><code class="language-python">
+### Module function
+The `mod_user_input` function is the main function of the module. Let's break down its components:
+```python
+while True:
+    ...
+    time.sleep(3)
+</code></pre>
+<p>This loop ensures that the module runs continuously, allowing it to receive user inputs repeatedly. The <code>time.sleep(3)</code> line introduces a 3-second delay between each input, preventing the module from overwhelming the user with prompts.</p>
+<pre><code class="language-python">m = input(&quot;User: &quot;)
+if len(m) == 0 or m.isspace() or m is None:
+    continue
+</code></pre>
+<p>This line receives input from the user. The input is stored in the variable <code>m</code>. 
+If the user input is empty (i.e., the user just pressed Enter without typing anything), only whitespace, or <code>None</code>, the module skips to the next iteration of the loop, effectively ignoring empty inputs.</p>
+<pre><code class="language-python">agent.state.add(f'user_message:{m}')
+</code></pre>
+<p>This line adds the user message to the agent's state. 
+The <strong>state</strong> is a shared memory space where modules can store and retrieve information. 
+The <code>AgentInterface.state</code> object provides access to this state. 
+The <code>AgentInterface.state.add</code> method is used to store new information in the state.
+At this time, the received user input <code>user_message:{m}</code>, where <code>{m}</code> is the actual user input, is added to the state. </p>
+<pre><code class="language-python">agent.message.send(&quot;chat&quot;, &quot;reply&quot;)
+</code></pre>
+<p>This line sends a message "<code>reply</code>" to the "<code>chat</code>" module. 
+The <code>message</code> object allows modules to communicate with each other by sending and receiving messages. 
+At this time, the <code>send</code> method is used to send a message to the "<code>chat</code>" module, which is expected to handle the reply.</p>
+<h2 id="make-a-chat-module">Make a chat module</h2>
+<p>Next, create a file named <code>chat.py</code> in the <code>my_project/agent1</code> directory. This file will define your second module, which is a simple chat module that can respond to user input.</p>
+<pre><code class="language-shell">touch my_project/agent1/chat.py
+</code></pre>
+<p>Now, open <code>chat.py</code> in your favorite text editor and add the following code:</p>
+<pre><code class="language-python"># my_project/agent1/chat.py
+@coma.module_main('chat')
+def mod_response_to_user(agent:coma.AgentInterface):
+    openai_client = OpenAI()
+    while True:
+        m = agent.message.receive()
+        if m is None:
+            continue  # If no message is received, skip to the next iteration
+        messages = [
+            {&quot;role&quot;: &quot;developer&quot;, &quot;content&quot;: &quot;You are a module of an autonomous agent. Your job is to respond to the user's input. You are expected to talk with the user. You are not an AI assistant, so feel free to talk freely. You do not need to help humans. You received the following messages from the user, other modules. Talk to the user in a natural way.&quot;},
+        ]
+        for s in agent.state.get(max_count=10).texts[::-1]:
+            if s.startswith(&quot;user_message:&quot;):
+                messages.append({&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: s[len(&quot;user_message:&quot;):]})
+            elif s.startswith(&quot;assistant_message:&quot;):
+                messages.append({&quot;role&quot;: &quot;assistant&quot;, &quot;content&quot;: s[len(&quot;assistant_message:&quot;):]})
+        messages.append({&quot;role&quot;: &quot;assistant&quot;, &quot;content&quot;: f&quot;{m}})
+
+        completion = openai_client.chat.completions.create(
+            model=&quot;gpt-4o&quot;,
+            messages=messages,
+        )
+        output_message = completion.choices[0].message.content
+        print(f'ChatBot: {output_message}')
+        agent.state.add(f&quot;assistant_message:{output_message}&quot;)
+
+        agent.message.send(&quot;user_input&quot;, 'chat response finished')
+</code></pre>
+<h3 id="disecting-the-chat-module-code">Disecting the chat module code</h3>
+<p>The basics are similar to the <code>user_input</code> module. 
+The module is defined with the <code>@coma.module_main('chat')</code> decorator, which allows it to be recognized as a module named "<code>chat</code>". 
+The <code>mod_response_to_user</code> function is the main function of the module. 
+It continuously listens for messages from the <code>user_input</code> module and sends responses back to the module like the last module.</p>
+<pre><code class="language-python">@coma.module_main('chat')
+def mod_response_to_user(agent:coma.AgentInterface):
+    ...
+    while True:
+        m = agent.message.receive()               # receive message from user_input module
+        ...
+        agent.message.send(&quot;user_input&quot;, 'chat response finished') # send message to user_input module to tell it finished processing
+</code></pre>
+<p>There are four new things in this module code.
+The first is when the module activates. </p>
+<pre><code class="language-python">while True:
+    m = agent.message.receive()
+    if m is None:
+        continue  # If no message is received, skip to the next iteration
+</code></pre>
+<p>The module runs continuously, waiting for messages from the <code>user_input</code> module.
+If the module receives a message, it activates and processes the message to respond to the user.</p>
+<p>The second is LLM interface. At this moment, we use <em>OpenAI</em>'s API to interact with the LLM.</p>
+<pre><code class="language-python">openai_client = OpenAI()
+...
+        completion = openai_client.chat.completions.create(
+            model=&quot;gpt-4o&quot;,
+            messages=messages,
+        )
+</code></pre>
+<p>The third is state retrieval. </p>
+<pre><code class="language-python">for s in agent.state.get(max_count=10).texts[::-1]:
+    if s.startswith(&quot;user_message:&quot;):
+        messages.append({&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: s[len(&quot;user_message:&quot;):]})
+    elif s.startswith(&quot;assistant_message:&quot;):
+        messages.append({&quot;role&quot;: &quot;assistant&quot;, &quot;content&quot;: s[len(&quot;assistant_message:&quot;):]})
+</code></pre>
+<p>We retrieve the latest state using <code>AgentInterface.state.get()</code>, which returns the most recent state of the agent. The <code>texts</code> property of the state object contains all text entries in the state, and we reverse it to process the most recent messages first.</p>
+<p>The obtained state is checked for messages that start with <code>user_message:</code> or <code>assistant_message:</code>. 
+If the message starts with <code>user_message:</code>, it is treated as a user message, and if it starts with <code>assistant_message:</code>, it is treated as an assistant message. 
+The messages are then appended to the <code>messages</code> list, which will be sent to the LLM.</p>
+<p>The fourth is output to the user.</p>
+<pre><code class="language-python">output_message = completion.choices[0].message.content
+print(f'ChatBot: {output_message}')
+agent.state.add(f'assistant_message:{output_message}')
+</code></pre>
+<p>The output from the LLM is stored in the <code>output_message</code> variable, which is then printed to the console. 
+The output message is also added to the agent's state with the prefix <code>assistant_message:</code>.</p>
+<p>In the end, the module sends a message to the <code>user_input</code> module to signal that it has finished processing the input and is ready for the next message.</p>
+<pre><code class="language-python">agent.message.send(&quot;user_input&quot;, 'finish')
+</code></pre>
+<h2 id="make-a-memory-organizer-module">Make a memory organizer module</h2>
+<p>Next, create a file named <code>memory_organizer.py</code> in the <code>my_project/agent1</code> directory. This file will define your third module, which is a simple memory organizer module that organizes the memory of the agent.</p>
+<pre><code class="language-shell">touch my_project/agent1/memory_organizer.py
+</code></pre>
+<p>Now, open <code>memory_organizer.py</code> in your favorite text editor and add the following code:</p>
+<pre><code class="language-python"># my_project/agent1/memory_organizer.py
+import time
+import random
+
+import concurrent_modular_agent as coma
+from concurrent_modular_agent import OpenAI
+
+@coma.module_main('memory_organizer')
+def mod_organize_memory(agent: coma.AgentInterface):
+    openai_client = OpenAI()
+    while True:
+        m = agent.message.receive()
+        messages = [
+            {&quot;role&quot;: &quot;developer&quot;, &quot;content&quot;: &quot;You are a module of an autonomous agent. Your job is to organize the memory of the agent. You are expected to organize the memory of the agent in a way that is helpfull to recall the past and what the agent had thought. You will be given a list of memory of received the following messages from the user, other modules.&quot;},
+        ]
+        organizing_range = random.randint(5, 10)  # Randomly decide how many messages to organize
+        for s in agent.state.get(max_count=10).texts[::-organizing_range]:
+            if s.startswith(&quot;user_message:&quot;):
+                messages.append({&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: s[len(&quot;user_message:&quot;):]})
+            elif s.startswith(&quot;assistant_message:&quot;):
+                messages.append({&quot;role&quot;: &quot;assistant&quot;, &quot;content&quot;: s[len(&quot;assistant_message:&quot;):]})
+        messages.append({&quot;role&quot;: &quot;assistant&quot;, &quot;content&quot;: f&quot;{m}})
+
+        completion = openai_client.chat.completions.create(
+            model=&quot;gpt-4.1-nano-2025-04-14&quot;,
+            messages=messages,
+        )
+        output_message = completion.choices[0].message.content
+        agent.state.add(f'assistant_message:{output_message}')
+
+        time.sleep(100)  # Wait for 3 seconds before next input
+</code></pre>
+<h3 id="disecting-the-memory-organizer-module-code">Disecting the memory organizer module code</h3>
+<p>The <code>memory_organizer</code> module is similar to the <code>chat</code> module, but it has a different purpose.
+It organizes the memory of the agent stored in the state.</p>
+<p>The main part of the module is collect a random numbers of states from the shared memory and send them to the LLM to organize the memory.</p>
+<p>This part collects 5~10 states from the agent's memory:</p>
+<pre><code class="language-python">organizing_range = random.randint(5, 10)  # Randomly decide how many messages to organize
+for s in agent.state.get(max_count=10).texts[::-organizing_range]:
+    if s.startswith(&quot;user_message:&quot;):
+        messages.append({&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: s[len(&quot;user_message:&quot;):]})
+    elif s.startswith(&quot;assistant_message:&quot;):
+        messages.append({&quot;role&quot;: &quot;assistant&quot;, &quot;content&quot;: s[len(&quot;assistant_message:&quot;):]})
+messages.append({&quot;role&quot;: &quot;assistant&quot;, &quot;content&quot;: f&quot;{m}})
+</code></pre>
+<p>The output of the LLM is stored to memory as an <code>assistant_message</code>:</p>
+<pre><code class="language-python">output_message = completion.choices[0].message.content
+agent.state.add(f'assistant_message:{output_message}')
+</code></pre>
+<p>Notice that the <code>memory_organizer</code> module does not send any message to other modules.</p>
+<h3 id="concurrency-of-memory-organizer-module">Concurrency of memory organizer module</h3>
+<p>The <code>memory_organizer</code> module is designed to run concurrently with the <code>user_input</code> and <code>chat</code> modules.
+This means that it can run in parallel with the other modules, allowing it to organize the memory of the agent while the user is interacting with the agent.
+Although both <code>user_input</code> and <code>chat</code> modules are designed to run continuously, <code>user_input</code> module will send messages only when the user inputs a message, and <code>chat</code> module will send messages only when it receives a message from the <code>user_input</code> module.
+The <code>memory_organizer</code> module will run continuously without activating. </p>
 <div style="text-align: center; margin: 2rem 0;">
-    <a href="../connecting-modules/" class="indigo-button">
-        🚀 Connecting Modules
+    <a href="../running-the-agent" class="indigo-button">
+        🚀 Running the Agent
     </a>
 </div>
 

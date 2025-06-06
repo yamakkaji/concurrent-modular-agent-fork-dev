@@ -1,37 +1,51 @@
 # 2. Creating a New Project
 
-CoMA is designed as project-oriented, meaning that you create modules and an assembly of modules (=agent) within a project. You can make either of the following two styles of projects:
-1. **CoMA Interface Project**: you write definitions of modules and run them as a single agent with `coma run` command. This is the simplest way to use CoMA.
-2. **Python Interface Project**: you write definitions of modules and agents and run them as more than one agent with `python` command. This is the most flexible way to use CoMA. 
+CoMA is designed with a project-oriented approach, where you create modules and assemble them into agents within a project. You can choose between two project styles:
 
-Regardless of the styles of project, you can create a new project simply making a directory. For **Python Interface Project**, this directory stores `python` scripts that define modules and agents. For **CoMA Interface Project**, you need to create one more depth of directory which corresponds to an agent and stores definitions of modules comprising the agent.
+1. **CoMA Interface Project**: Write module definitions and run them as a single agent using the `coma run` command. This is the simplest way to use CoMA.
 
-For instance, your **CoMA Interface Project** style `sample_project` directory can look like this:
+2. **Python Interface Project**: Write module and agent definitions and run multiple agents using the `python` command. This is the most flexible approach.
 
-```shell
+## Project Structure
+
+Regardless of the project style, you create a new project by simply making a directory.
+
+### CoMA Interface Project Structure
+
+For **CoMA Interface Projects**, the directory contains agent subdirectories, each storing the module definitions that comprise that agent:
+
+```
 sample_project/    # Project directory
 ├── agent1/        # Agent directory
 │   ├── module1.py # Defines module1
 │   ├── module2.py # Defines module2
 │   └── module3.py # Defines module3
-└── agent2/
-    ├── module1.py
-    ├── module2.py
-    └── module3.py
+└── agent2/        # Another agent directory
+    ├── module1.py # Defines module1
+    ├── module2.py # Defines module2
+    └── module3.py # Defines module3
 ```
 
-For **Python Interface Project**, it can look like this:
+### Python Interface Project Structure
 
-```shell
+For **Python Interface Projects**, the directory contains both module definitions and agent scripts:
+
+```
 sample_project/ # Project directory
 ├── module1.py  # Defines module1
 ├── module2.py  # Defines module2
-└── module3.py  # Defines module3
-├── agent1.py   # Defines an agent that uses module1, module2, and module3
-└── agent2.py   # Defines another agent that uses module1, module2, and module3
+├── module3.py  # Defines module3
+├── agent1.py   # Defines an agent using modules 1, 2, and 3
+└── agent2.py   # Defines another agent using modules 1, 2, and 3
 ```
 
-To start with, we will introduce the **CoMA Interface Project** style, which is simpler and more straightforward for beginners. You can skip to the **Python Interface Project** style if you are already familiar with Python and want to use CoMA in a more flexible way.
+## Getting Started
+
+We'll begin with the **CoMA Interface Project** style, which is simpler and more straightforward for beginners. If you're already familiar with Python and want more flexibility, you can skip ahead to learn about the **Python Interface Project** style.
+
+## Next Steps
+
+Let's create your first CoMA project and start building modules!
 
 <div style="text-align: center; margin: 2rem 0;">
     <a href="../creating-modules" class="indigo-button">
