@@ -10,14 +10,12 @@ Here is the table of contents for this guide:
 
 3. [Creating Modules](./creating-modules.md)
 
-4. [Connecting Modules](./connecting-modules.md)
-
-5. [Running the Agent](./running-the-agent.md)
+4. [Running the Agent](./running-the-agent.md)
 
 First, we will cover the installation process.
 
 <div style="text-align: center; margin: 2rem 0;">
-    <a href="./getting-started/installation/" class="indigo-button">
+    <a href="../installation.md" class="indigo-button">
         🚀 Start Installation
     </a>
 </div>
