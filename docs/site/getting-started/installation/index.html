@@ -543,33 +543,33 @@
 </ul>
 <h2 id="setup">Setup</h2>
 <p>It is recommended to use a virtual environment:</p>
-<pre><code class="language-console">$ python -m venv .venv
-$ source .venv/bin/activate
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gp">$ </span>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="gp">$ </span><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+</code></pre></div>
 <p>Install the required packages:</p>
-<pre><code class="language-console">$ pip install -e &quot;.[dev]&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev]&quot;</span>
+</code></pre></div>
 <h2 id="testing-your-installation">Testing Your Installation</h2>
 <h3 id="1-start-backend-services">1. Start Backend Services</h3>
-<pre><code class="language-console">$ coma backend start
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="gp">$ </span>coma<span class="w"> </span>backend<span class="w"> </span>start
+</code></pre></div>
 <p><strong>Note:</strong> You need to run Docker before starting the backend services.</p>
 <p><strong>Tip for macOS users:</strong> You need to run the Docker Desktop application, not CLI commands.</p>
 <p>You can use the <code>start</code>, <code>stop</code>, and <code>restart</code> commands to manage the backend services. For example, to stop the backend services:</p>
-<pre><code class="language-console">$ coma backend stop
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="gp">$ </span>coma<span class="w"> </span>backend<span class="w"> </span>stop
+</code></pre></div>
 <h3 id="2-set-your-openai-api-key">2. Set Your OpenAI API Key</h3>
-<pre><code class="language-console">$ export OPENAI_API_KEY=&quot;your_api_key&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gp">$ </span><span class="nb">export</span><span class="w"> </span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span><span class="s2">&quot;your_api_key&quot;</span>
+</code></pre></div>
 <h3 id="3-run-tests">3. Run Tests</h3>
-<pre><code class="language-console">$ pytest
-</code></pre>
-<p>If all tests pass, you should see output similar to:</p>
-<pre><code class="language-console">....
-</code></pre>
-<p>If tests fail, you will see output indicating which tests failed or encountered errors:</p>
-<pre><code class="language-console">..!!!
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="gp">$ </span>pytest
+</code></pre></div>
+<p>If all tests pass, you should see output similar to:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="go">....</span>
+</code></pre></div></p>
+<p>If tests fail, you will see output indicating which tests failed or encountered errors:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="go">..!!!</span>
+</code></pre></div></p>
 <h2 id="next-steps">Next Steps</h2>
 <p>Now you're ready to start building your agent systems with CoMA! Continue to the next section to learn how to create your first project.</p>
 <div style="text-align: center; margin: 2rem 0;">

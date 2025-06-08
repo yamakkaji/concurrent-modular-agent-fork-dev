@@ -99,7 +99,7 @@ Any edits made to files in the folder are reflected immediately without needing 
 
 
 
-### `coma` CLI 
+### CLI `coma` 
 
 ```console
 $ coma
@@ -117,7 +117,7 @@ Commands:
 ```
 
 ```console
-$ coma memory
+$ coma memory       
 Usage: coma memory [OPTIONS] COMMAND [ARGS]...
 
   Memory management commands
@@ -126,6 +126,7 @@ Options:
   --help  Show this message and exit.
 
 Commands:
-  ls  List memory contents
-  rm  Delete memory with the specified name
+  backup  Backup memory to the specified file path
+  ls      List memory names
+  rm      Delete memory with the specified name
 ```

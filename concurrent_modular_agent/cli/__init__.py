@@ -49,7 +49,7 @@ def restart():
 """
 Memory commands
 """    
-from .. import utils as coma_utils
+from ..state import StateClient
 
 @cli.group()
 def memory():
@@ -58,8 +58,8 @@ def memory():
 
 @memory.command()
 def ls():
-    """List memory contents"""
-    memory_list = coma_utils.get_all_memory()
+    """List memory names"""
+    memory_list = StateClient.get_all_names()
     for memory in memory_list:
         print(memory)
 
@@ -68,8 +68,20 @@ def ls():
 def rm(name):
     """Delete memory with the specified name"""
     try:
-        coma_utils.delete_memory(name)
+        StateClient.delete_by_name(name)
         print(f"Memory '{name}' deleted successfully.")
+    except ValueError as e:
+        print(e)
+        
+@memory.command()
+@click.argument('memory_name')
+@click.argument('file_path')
+def backup(memory_name, file_path):
+    """Backup memory to the specified file path"""
+    try:
+        state = StateClient(memory_name)  # Ensure the memory exists
+        state.backup(file_path)
+        print(f"Memory backed up to '{file_path}' successfully.")
     except ValueError as e:
         print(e)
 
