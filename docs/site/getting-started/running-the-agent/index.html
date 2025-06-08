@@ -455,20 +455,40 @@
 <p>Let's run the assembly of the modules you have created as an agent!</p>
 <p>Actually, running the agent is as simple as running a single command. </p>
 <p>First, make sure you have directory structure like this:</p>
-<pre><code>my_project/
-└── agent1
-    ├── user_input.py
-    ├── chat.py
-    └── memory_organizer.py
-</code></pre>
-<p>If you have skipped the previous steps, you can go to <code>examples/coma_interface</code> directory.</p>
-<p>Also, Docker should be running on your machine, as CoMA uses Docker to run the backend services.</p>
-<pre><code class="language-shell">coma backend start
-</code></pre>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>my_project/
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>└── agent1
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    ├── user_input.py
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    ├── chat.py
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    └── memory_organizer.py
+</code></pre></div>
+If you have skipped the previous steps, you can go to <code>examples/coma_interface</code> directory.</p>
+<p>Also, Docker should be running on your machine, as CoMA uses Docker to run the backend services.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$<span class="w"> </span>coma<span class="w"> </span>backend<span class="w"> </span>start
+</code></pre></div></p>
 <p>Then, run the following command in the <code>my_project</code> directory:</p>
-<pre><code class="language-shell">coma run agent1
-</code></pre>
-<p>This command will start the agent named <code>agent1</code>, which will automatically load the modules you have created in the <code>agent1</code> directory. </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$<span class="w"> </span>coma<span class="w"> </span>run<span class="w"> </span>agent1
+</code></pre></div>
+<p>This command will start the agent named <code>agent1</code>, which will automatically load the modules you have created in the <code>agent1</code> directory. 
+You should see the output similar to this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>User:<span class="w"> </span>
+</code></pre></div>
+<p>You can now type a message and see how the agent responds.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="go">User: Hi</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="go">ChatBot: Hey again! What&#39;s new with you?</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="go">User: Can I call you CoMA agent?</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="go">ChatBot: Sure, you can call me CoMA agent if you like! It has an intriguing ring to it. What&#39;s next on your list?</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="go">User: What is your name?</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="go">ChatBot: I don&#39;t really have a name, but you can call me whatever you like! CoMA agent, perhaps? Or maybe something else that suits your fancy.</span>
+</code></pre></div>
+<p>As you can see, the agent remembers the conversation history and responds accordingly. Recall that the user input is retrieved from the memory by the <code>chat</code> module, not sent directly to the <code>chat</code> module, but still the agent can respond to the user input in a natural way. This means memory is working properly. </p>
+<p>After spent some time chatting with the agent, you can see the existence of the memory more clearly. </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="go">User: What have we talked?</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="go">ChatBot: We’ve been chatting about dinosaurs! We started with some imaginative stories about these fascinating prehistoric creatures, like the massive Brachiosaurus and the fierce Tyrannosaurus rex. Then, we moved on to discussing why dinosaurs went extinct, touching on the asteroid impact theory and volcanic activities. If you have anything else you’re curious about, feel free to ask!</span>
+</code></pre></div>
+<p>However, this tutorial did not cover more advanced memory retrieval techniques, such as using similarity search. 
+We will cover this in other tutorials later, so stay tuned!</p>
+<p>For this getting started tutorial, you have successfully created a simple agent that can chat with the user and remember the conversation history.
+Well done!</p>
 
 
 
