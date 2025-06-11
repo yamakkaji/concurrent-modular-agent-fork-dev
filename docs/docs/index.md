@@ -2,7 +2,7 @@
 
 **CAUTION: This package is still under development!**
 
-**Package will be public soon!**
+**Package will be public soon! Stay tuned by following [us](https://x.com/alter_machine_/status/1786969561952387213)**
 
 Version: 0.0.0
 
