@@ -1,16 +1,18 @@
 # MkDocsサイトをGitHub Pagesにデプロイするワークフロー
 name: Deploy MkDocs to GitHub Pages
 
+# on:
+#   push:
+#     branches:
+#       - dev_doc
+#     # 【修正点1】実際のファイル構造に合わせて監視パスを変更
+#     paths:
+#       - 'docs/docs/**'
+#       - 'docs/mkdocs.yml'
 on:
   push:
-    branches:
-      - dev_doc
-    # 【修正点1】実際のファイル構造に合わせて監視パスを変更
-    paths:
-      - 'docs/docs/**'
-      - 'docs/mkdocs.yml'
-  # GitHubのUIから手動でワークフローを実行できるようにする
   workflow_dispatch:
+  # GitHubのUIから手動でワークフローを実行できるようにする
 
 # ワークフローが必要とする権限を設定
 permissions:
