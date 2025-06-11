@@ -3,7 +3,10 @@ name: Deploy MkDocs to GitHub Pages
 on:
   push:
     branches:
-      - main  # メインブランチにプッシュされた時に実行
+      - dev_doc
+    paths:
+      - 'docs/**'          # docsフォルダの変更時のみ
+      - 'mkdocs.yml'       # 設定ファイルの変更時のみ
   workflow_dispatch:  # 手動実行も可能
 
 permissions:
