@@ -2,7 +2,7 @@ site_name: CoMA
 theme:
   name: material
   palette:
-    scheme: indigo
+    scheme: black
 
 copyright: Copyright © 2025 Alternative Machine Inc. All Rights Reserved
 
