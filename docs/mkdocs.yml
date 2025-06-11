@@ -4,6 +4,8 @@ theme:
   palette:
     scheme: indigo
 
+copyright: Copyright © 2025 Alternative Machine Inc. All Rights Reserved
+
 markdown_extensions:
   - codehilite:
       use_pygments: true
