@@ -16,3 +16,5 @@ To get started with CoMA, you can follow the steps in [Getting Started](./gettin
     docs/
         index.md  # The documentation homepage.
         ...       # Other markdown pages, images and other files. -->
+
+Alternative Machine Inc. All Rights Reserved
