@@ -2,13 +2,13 @@
 name: Deploy MkDocs to GitHub Pages
 
 on:
-  # 'dev_doc' ブランチの 'docs/' ディレクトリか 'mkdocs.yml' ファイルにpushがあった場合に実行
   push:
     branches:
       - dev_doc
+    # 【修正点1】実際のファイル構造に合わせて監視パスを変更
     paths:
-      - 'docs/**'
-      - 'mkdocs.yml'
+      - 'docs/docs/**'
+      - 'docs/mkdocs.yml'
   # GitHubのUIから手動でワークフローを実行できるようにする
   workflow_dispatch:
 
@@ -19,7 +19,6 @@ permissions:
   id-token: write
 
 # 同時実行に関する設定
-# "pages"というグループで同時に1つのデプロイのみを実行する
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -33,7 +32,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          # Gitの全履歴を取得（バージョン表示などに必要）
           fetch-depth: 0
 
       # 2. Python環境をセットアップ
@@ -49,24 +47,25 @@ jobs:
           pip install mkdocs mkdocs-material pymdown-extensions
 
       # 4. MkDocsでサイトをビルド
+      # 【修正点2】mkdocs.ymlがある'docs'ディレクトリでコマンドを実行するように指定
       - name: Build MkDocs site
+        working-directory: ./docs
         run: mkdocs build
 
       # 5. GitHub Pages用の設定を行う
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
-      # 6. ビルドしたサイト（'site'ディレクトリ）をアーティファクトとしてアップロード
+      # 6. ビルドしたサイトをアーティファクトとしてアップロード
+      # 【修正点3】ビルドされた'site'ディレクトリのパスを正しく指定
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './site'
+          path: './docs/site'
 
   # デプロイジョブ
   deploy:
-    # 'build' ジョブが成功した後に実行される
     needs: build
-    # デプロイ環境の設定
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
