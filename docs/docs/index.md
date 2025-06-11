@@ -5,12 +5,16 @@
 > 
 > Thank you for contributing to this exciting project! This documentation is primarily for our **development team and collaborators** as we build something innovative together.
 > 
-> **🔍 New Visitor?** You've found our upcoming **Concurrent Modular Agent** project! 
+> **🔍 New Visitor?** You've found our upcoming **Concurrent Modular Agent** project!
+> 
 > 🚀 Follow [@alter_machine_](https://x.com/alter_machine_/status/1786969561952387213) for the official release or reach out if you're interested in collaborating!
 > 
 > **Project Status:**
+> 
 > - 🚀 **Coming Soon**: A powerful new approach to modular AI agents
+> - 
 > - 🌟 **Stay Tuned**: Official launch announcement coming
+> - 
 > - 💡 **Interested in Collaboration?** We're always open to new contributors!
 > 
 > **For Our Contributors**: Your feedback and insights are invaluable as we shape this technology. Thank you for being part of this journey! 🙏
