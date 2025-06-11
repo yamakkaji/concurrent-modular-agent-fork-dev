@@ -9,6 +9,7 @@
 > 🚀 Follow [@alter_machine_](https://x.com/alter_machine_/status/1786969561952387213) for the official release or reach out if you're interested in collaborating!
 > 
 > **Project Status:**
+> 
 > - 🚀 **Coming Soon**: A powerful new approach to modular AI agents
 > - 🌟 **Stay Tuned**: Official launch announcement coming
 > - 💡 **Interested in Collaboration?** We're always open to new contributors!
