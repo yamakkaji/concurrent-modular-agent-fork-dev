@@ -24,6 +24,8 @@ $ source .venv/bin/activate
 Install the required packages:
 
 ```console
+$ git clone https://github.com/***.git
+$ cd concurrent-modular-agent-main
 $ pip install -e ".[dev]"
 ```
 
