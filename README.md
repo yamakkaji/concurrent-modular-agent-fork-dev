@@ -1,5 +1,5 @@
 # Concurrent Modular Agent
-<img width="1292" alt="cma_architecture" src="https://github.com/user-attachments/assets/07ba751e-64a9-4e34-805c-0c0ce8ef8512" />
+<img width="1292" alt="cma_architecture" src="https://github.com/user-attachments/assets/65129a59-c37c-4ff4-b4ca-66a33a49226f" />
 
 **Welcome to Concurrent Modular Agent (CoMA) Framework!** 
 CoMA is designed to simplify the development of agents that collaborate in a modular and concurrent fashion. It draws inspiration from subsumption architecture, asynchronous message passing in concurrent programming, the global workspace model, and the core software design principles of modularity and reusability.
