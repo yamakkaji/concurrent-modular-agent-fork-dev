@@ -1,9 +1,19 @@
 from concurrent_modular_agent import Agent
 from multiprocessing import Queue
+import time
 
-def test_module(capfd):
+def test_module():
     test_queue = Queue()
     def mod(state, message):
+        test_queue.put("module called")
+    agent = Agent('test_module')
+    agent.add_module("mod", mod)
+    agent.start(detach=False)
+    assert test_queue.get() == "module called"
+
+def test_module_2():
+    test_queue = Queue()
+    def mod(agent):
         test_queue.put("module called")
     agent = Agent('test_module')
     agent.add_module("mod", mod)

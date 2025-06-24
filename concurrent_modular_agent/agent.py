@@ -29,10 +29,19 @@ class Agent():
         self.modules[module_name] = module_function
     
     def _run_module_process(self, agent_name, module_name, module_function, initialized_bariier):
-        state_client = cma.StateClient(agent_name, module_name)
-        message_client = cma.MessageClient(agent_name, module_name)
-        initialized_bariier.wait()
-        module_function(state_client, message_client)
+        # initialized_bariier.wait()
+        if module_function.__code__.co_argcount == 2:
+            state_client = cma.StateClient(agent_name, module_name)
+            message_client = cma.MessageClient(agent_name, module_name)
+            initialized_bariier.wait()
+            module_function(state_client, message_client)
+        elif module_function.__code__.co_argcount == 1:
+            agent = AgentInterface(agent_name, module_name)
+            initialized_bariier.wait()
+            module_function(agent)
+        else:
+            raise TypeError(f"{module_function.__name__} must take 1 (AgentInterface) or 2.  (state_client, message_client) arguments, but got {module_function.__code__.co_argcount} arguments.")
+            
         
     def start(self, detach=True):
         module_processes = []
