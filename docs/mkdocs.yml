@@ -1,0 +1,85 @@
+site_name: CoMA
+site_description: Concurrent Modular Agent - A powerful framework for building modular AI agents
+
+theme:
+  name: material
+  palette:
+    # Light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: black
+      accent: deep grey
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: white
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  
+  font:
+    text: Inter
+    code: JetBrains Mono
+  
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+
+  icon:
+    logo: material/robot-outline
+    repo: fontawesome/brands/github
+
+copyright: Copyright © 2025 Alternative Machine Inc. All Rights Reserved
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - codehilite:
+      use_pygments: true
+      css_class: highlight
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - attr_list
+  - md_in_html
+
+nav:
+  - Home: index.md
+  - Concepts: concepts.md
+  - Getting Started:
+      - Overview: getting-started/getting-started.md
+      - Installation: getting-started/installation.md
+      - Creating a New Project: getting-started/creating-a-new-project.md
+      - Creating Modules: getting-started/creating-modules.md
+      - Running the Agent: getting-started/running-the-agent.md
+  - API Reference: api.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/twitter
+      link: https://x.com/alter_machine_
+      name: Follow us on Twitter

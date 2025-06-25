@@ -35,6 +35,7 @@ class ScriptReloader(FileSystemEventHandler):
         self.script_path = script_path
         self.process = None
         self.restart_script()
+        self.last_mtime = None
 
     def restart_script(self):
         if self.process:
@@ -44,8 +45,15 @@ class ScriptReloader(FileSystemEventHandler):
         self.process = subprocess.Popen([sys.executable, '-m' 'concurrent_modular_agent.entrypoint', self.script_path])
 
     def on_modified(self, event):
-        print(f"Detected change in {self.script_path}")
-        if event.src_path == os.path.abspath(self.script_path):
+        try:
+            current_mtime = os.path.getmtime(self.script_path)
+        except FileNotFoundError:
+            return  # 一時的に消えているかも
+
+        # １度のファイル変更で何度も呼ばれることがあるので、前回の変更時刻と比較
+        if self.last_mtime is None or current_mtime != self.last_mtime:
+            self.last_mtime = current_mtime
+            print(f"Detected change in {self.script_path}")
             self.restart_script()
 
 import glob
