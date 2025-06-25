@@ -21,9 +21,11 @@ $ python -m venv .venv
 $ source .venv/bin/activate
 ```
 
-Install the required packages:
+Clone this repository and install the required packages:
 
 ```console
+$ git clone https://github.com/***.git
+$ cd concurrent-modular-agent-main
 $ pip install -e ".[dev]"
 ```
 

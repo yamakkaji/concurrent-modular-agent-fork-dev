@@ -10,7 +10,7 @@ We'll create the following modules:
 2. **`chat`**: Receives messages from the `user_input` module and responds to the user
 3. **`memory_organizer`**: Organizes the agent's memory in the background
 
-![Overview of a simple CoMA agent](../img/my-first-coma.png)
+![Overview of a simple CoMA agent](../img/getting-started-coma-chat-agent.png)
 
 ## Setting Up Your Project
 

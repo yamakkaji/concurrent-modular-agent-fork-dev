@@ -1,0 +1,79 @@
+# MkDocsサイトをGitHub Pagesにデプロイするワークフロー
+name: Deploy MkDocs to GitHub Pages
+
+# on:
+#   push:
+#     branches:
+#       - dev_doc
+#     # 【修正点1】実際のファイル構造に合わせて監視パスを変更
+#     paths:
+#       - 'docs/docs/**'
+#       - 'docs/mkdocs.yml'
+on:
+  push:
+  workflow_dispatch:
+  # GitHubのUIから手動でワークフローを実行できるようにする
+
+# ワークフローが必要とする権限を設定
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 同時実行に関する設定
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # ビルドジョブ
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. リポジトリのコードをチェックアウト
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # 2. Python環境をセットアップ
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      # 3. 必要なPythonパッケージをインストール
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install mkdocs mkdocs-material pymdown-extensions
+
+      # 4. MkDocsでサイトをビルド
+      # 【修正点2】mkdocs.ymlがある'docs'ディレクトリでコマンドを実行するように指定
+      - name: Build MkDocs site
+        working-directory: ./docs
+        run: mkdocs build
+
+      # 5. GitHub Pages用の設定を行う
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      # 6. ビルドしたサイトをアーティファクトとしてアップロード
+      # 【修正点3】ビルドされた'site'ディレクトリのパスを正しく指定
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './docs/site'
+
+  # デプロイジョブ
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      # 1. アップロードされたアーティファクトをGitHub Pagesにデプロイ
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
