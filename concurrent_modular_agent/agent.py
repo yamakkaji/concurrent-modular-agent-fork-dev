@@ -28,24 +28,23 @@ class Agent():
                    module_function: callable):
         self.modules[module_name] = module_function
     
-    def _run_module_process(self, agent_name, module_name, module_function, initialized_bariier):
-        # initialized_bariier.wait()
+    @staticmethod
+    def _run_module_process(agent_name, module_name, module_function, initialized_bariier):
         if module_function.__code__.co_argcount == 2:
             state_client = cma.StateClient(agent_name, module_name)
             message_client = cma.MessageClient(agent_name, module_name)
-            initialized_bariier.wait()
-            module_function(state_client, message_client)
+            args = (state_client, message_client)
         elif module_function.__code__.co_argcount == 1:
             agent = AgentInterface(agent_name, module_name)
-            initialized_bariier.wait()
-            module_function(agent)
+            args = (agent,)
         else:
             raise TypeError(f"{module_function.__name__} must take 1 (AgentInterface) or 2.  (state_client, message_client) arguments, but got {module_function.__code__.co_argcount} arguments.")
+        initialized_bariier.wait()
+        module_function(*args)
             
         
     def start(self, detach=True):
         module_processes = []
-        
         # run modules
         initialized_bariier = threading.Barrier(len(self.modules))
         # initialized_bariier = multiprocessing.Barrier(len(self.modules))
