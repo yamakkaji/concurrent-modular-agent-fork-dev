@@ -58,7 +58,10 @@ class StateClient():
         if metadata is not None:
             for m in metadatas:
                 m.update(metadata)
-        self._chromadb_collection.add(ids=ids, documents=states, metadatas=metadatas)
+        try:
+            self._chromadb_collection.add(ids=ids, documents=states, metadatas=metadatas)
+        except Exception as e:
+            print(f"Error adding states: {e}")
 
     def get(self, max_count:int=None, metadata:dict=None, reverse:bool=False):
         if metadata is None:
