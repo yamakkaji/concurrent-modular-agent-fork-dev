@@ -13,7 +13,7 @@ my_project/
     ├── chat.py
     └── memory_organizer.py
 ```
-If you have skipped the previous steps, you can go to `examples/coma_interface` directory.
+If you have skipped the previous steps, you can go to `examples/cma_interface` directory.
 
 Also, Docker should be running on your machine, as CMA uses Docker to run the backend services.
 ```shell
