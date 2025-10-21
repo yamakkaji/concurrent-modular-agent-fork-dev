@@ -17,14 +17,3 @@ class CustomEmbeddingFunction(EmbeddingFunction):
             normalize_embeddings=True
         ).tolist()
         return embeddings
-
-
-
-"""
-# embedder == "embeddinggemma-300M"
-self._embedding_function = CustomEmbeddingFunction(
-    model_id="google/embeddinggemma-300M",
-    device="cpu",
-    truncate_dim=128
-)
-"""
