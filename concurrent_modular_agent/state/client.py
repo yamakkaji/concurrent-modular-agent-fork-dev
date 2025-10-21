@@ -7,6 +7,7 @@ from dataclasses import dataclass
 import warnings
 import datetime
 from .state import State
+from .custom_embedder import CustomEmbeddingFunction
 
 
 def _convert_ndarrays_to_lists(data):
@@ -17,12 +18,15 @@ def _convert_ndarrays_to_lists(data):
 
 
 class StateClient():
-    def __init__(self, agent_name, module_name:str=None):
+    def __init__(self, agent_name, module_name:str=None, embedder:chromadb.EmbeddingFunction=None):
         self._chromadb_client = chromadb.HttpClient(host='localhost', port=8000)
-        self._embedding_function = embedding_functions.OpenAIEmbeddingFunction(
-            api_key_env_var="OPENAI_API_KEY",
-            model_name="text-embedding-3-small"
-        )
+        if embedder == None:
+            self._embedding_function = embedding_functions.OpenAIEmbeddingFunction(
+                api_key_env_var="OPENAI_API_KEY",
+                model_name="text-embedding-3-small"
+            )
+        else:
+            self._embedding_function = embedder
         self._chromadb_collection = self._chromadb_client.get_or_create_collection(
             self._convert_agent_name_2_collection_name(agent_name),
             embedding_function=self._embedding_function
