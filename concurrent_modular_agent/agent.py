@@ -3,6 +3,8 @@ from .state import StateClient
 from .message import MessageClient
 import concurrent_modular_agent as cma
 
+from chromadb import EmbeddingFunction
+
 """
 This class is intended for the mode where agents are launched via the coma CLI interface.
 """
@@ -18,10 +20,10 @@ class AgentInterface:
 This class is intended for the mode where modules are implemented as Python functions and agents are launched from a Python script.
 """
 class Agent():
-    def __init__(self, name:str):
+    def __init__(self, name:str, state_embedder:str="default", embedding_custom_function:EmbeddingFunction=None):
         self.name = name
         self.modules = {}
-        self.state = StateClient(self.name, 'main')
+        self.state = StateClient(self.name, 'main', embedder=state_embedder, embedding_custom_function=embedding_custom_function)
         self.message = MessageClient(self.name, 'main')
 
     def add_module(self, module_name: str, 

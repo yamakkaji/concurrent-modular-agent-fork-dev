@@ -7,7 +7,7 @@ from dataclasses import dataclass
 import warnings
 import datetime
 from .state import State
-
+from .custom_embedder import CustomEmbeddingFunction
 
 def _convert_ndarrays_to_lists(data):
     # embeddingsをlistに変換
@@ -17,12 +17,27 @@ def _convert_ndarrays_to_lists(data):
 
 
 class StateClient():
-    def __init__(self, agent_name, module_name:str=None):
+    def __init__(self, agent_name, module_name:str=None, embedder:str="default", embedding_custom_function:chromadb.EmbeddingFunction=None):
         self._chromadb_client = chromadb.HttpClient(host='localhost', port=8000)
-        self._embedding_function = embedding_functions.OpenAIEmbeddingFunction(
-            api_key_env_var="OPENAI_API_KEY",
-            model_name="text-embedding-3-small"
-        )
+        if embedder == "default":
+            warnings.warn("\033[91mThe 'default' embedder is no longer OpenAI embedder. Please specify 'openai' or 'gemma' for using predefined embedders, or 'custom' to use embedding_custom_function.\033[0m", DeprecationWarning)
+            self._embedding_function = embedding_functions.DefaultEmbeddingFunction()
+            pass
+        elif embedder == "openai":
+            self._embedding_function = embedding_functions.OpenAIEmbeddingFunction(
+                api_key_env_var="OPENAI_API_KEY",
+                model_name="text-embedding-3-small"
+            )
+        elif embedder == "gemma":
+            self._embedding_function = CustomEmbeddingFunction(
+                model_id="google/embeddinggemma-300M",
+                device="cpu",
+                truncate_dim=128
+            )
+        else:
+            if embedding_custom_function is None:
+                raise ValueError("When embedder_option is 'custom', embedding_custom_function must be provided.")
+            self._embedding_function = embedding_custom_function
         self._chromadb_collection = self._chromadb_client.get_or_create_collection(
             self._convert_agent_name_2_collection_name(agent_name),
             embedding_function=self._embedding_function
