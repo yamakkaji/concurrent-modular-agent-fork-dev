@@ -15,7 +15,8 @@ dependencies = [
     "loguru",
     "openai",
     "lark",
-    "watchdog"
+    "watchdog",
+    "sentence-transformers"
 ]
 
 [project.optional-dependencies]
