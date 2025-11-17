@@ -31,22 +31,21 @@ def send_to_openai(frame, openai_client, agent, prompt):
     )
 
     vision_text = response.choices[0].message.content
-    print(f'# vision: {vision_text}', flush=True)
+    agent.log(vision_text)
     agent.state.add(vision_text)
 
 def vision(device: str | int = 0, 
            prompt: str = default_prompt,
+           interval = 10.0,  # seconds
            show_window: bool = False):
     def vision_module(agent: cma.AgentInterface):
+        agent.log_icon = "👁️"
         openai_client = OpenAI()
         cap = cv2.VideoCapture(device)
 
         # 対応していればバッファサイズを1に（古いフレームを溜めない）
         cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
-
-        interval = 10.0  # 秒
         last_sent = 0.0
-
         while True:
             ret, frame = cap.read()
             if not ret:
