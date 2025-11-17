@@ -27,7 +27,7 @@ dev = [
 ]
 
 [project.scripts]
-coma = "concurrent_modular_agent.cli:main"
+cma = "concurrent_modular_agent.cli:main"
 
 # pyproject.toml
 [tool.pytest.ini_options]
