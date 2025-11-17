@@ -1,2 +1,1 @@
-from concurrent_modular_agent.state.client import StateClient
-from concurrent_modular_agent.message.client import MessageClient
+from .vision import vision
