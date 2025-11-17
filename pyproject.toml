@@ -4,6 +4,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "concurrent_modular_agent"
+version = "0.0.1"
 authors = [{name = "maru-n", email = "norihiro.maruyama@gmail.com"}]
 license = {file = "LICENSE"}
 classifiers = ["License :: OSI Approved :: MIT License"]
