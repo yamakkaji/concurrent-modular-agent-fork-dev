@@ -1,5 +1,5 @@
 import concurrent_modular_agent as cma
-import time, cv2, base64, threading
+import time, cv2, base64, threading, os, datetime
 from openai import OpenAI
 
 default_prompt = """
@@ -37,11 +37,17 @@ def send_to_openai(frame, openai_client, agent, prompt):
 def vision(device: str | int = 0, 
            prompt: str = default_prompt,
            interval = 10.0,  # seconds
-           show_window: bool = False):
+           show_window: bool = False,
+           save_image: bool = False,
+           save_image_path: str = "./",
+           save_image_prefix: str = "vision_"):
     def vision_module(agent: cma.AgentInterface):
         agent.log_icon = "👁️"
         openai_client = OpenAI()
         cap = cv2.VideoCapture(device)
+        
+        if save_image:
+            os.makedirs(save_image_path, exist_ok=True)
 
         # 対応していればバッファサイズを1に（古いフレームを溜めない）
         cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
@@ -68,6 +74,11 @@ def vision(device: str | int = 0,
                     args=(snapshot, openai_client, agent, prompt),
                     daemon=True
                 ).start()
+                if save_image:
+                    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+                    filename = f"{save_image_prefix}{timestamp}.jpg"
+                    filepath = os.path.join(save_image_path, filename)
+                    cv2.imwrite(filepath, snapshot)
 
         cap.release()
         cv2.destroyAllWindows()
