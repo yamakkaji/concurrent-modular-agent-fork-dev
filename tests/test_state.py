@@ -155,3 +155,20 @@ def test_state_datetime_2():
     assert s[1].text == "2"
     assert s[2].text == "1"    
     
+def test_state_delete_single():
+    state = StateClient("test_agent")
+    state.clear()
+    state.add("state 1")
+    state.add("state 2")
+    state.add("state 3")
+    assert state.count() == 3
+    s = state.get()
+    target_record = next(rec for rec in s if rec.text == "state 2")
+    target_id = target_record.id
+    state.delete(target_id)
+    s_after = state.get()
+    texts_after = [rec.text for rec in s_after]
+    assert state.count() == 2
+    assert "state 2" not in texts_after
+    assert "state 1" in texts_after
+    assert "state 3" in texts_after
