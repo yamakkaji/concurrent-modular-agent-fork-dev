@@ -17,3 +17,8 @@ class CustomEmbeddingFunction(EmbeddingFunction):
             normalize_embeddings=True
         ).tolist()
         return embeddings
+    
+
+class DummyEmbeddingFunction(EmbeddingFunction):
+    def __call__(self, input: Documents) -> Embeddings:
+        return [[0] * 128] * len(input)

@@ -7,7 +7,7 @@ from dataclasses import dataclass
 import warnings
 import datetime
 from .state import State
-from .custom_embedder import CustomEmbeddingFunction
+from .custom_embedder import CustomEmbeddingFunction, DummyEmbeddingFunction
 
 def _convert_ndarrays_to_lists(data):
     # embeddingsをlistに変換
@@ -34,6 +34,8 @@ class StateClient():
                 device="cpu",
                 truncate_dim=128
             )
+        elif embedder == "none":
+            self._embedding_function = DummyEmbeddingFunction()
         else:
             if embedding_custom_function is None:
                 raise ValueError("When embedder_option is 'custom', embedding_custom_function must be provided.")
