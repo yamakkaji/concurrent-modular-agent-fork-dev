@@ -124,8 +124,13 @@ class StateClient():
         else:
             return state
 
-    def delete(self, id:str):
-        raise NotImplementedError("The delete method is not implemented yet.")
+    def delete(self, ids: str | list[str]):
+        if isinstance(ids, str):
+            ids = [ids]
+        try:
+            self._chromadb_collection.delete(ids=ids)
+        except Exception as e:
+            print(f"Error deleting ids {ids}: {e}")
 
     def count(self):
         n = self._chromadb_collection.count()

@@ -1,4 +1,4 @@
-import multiprocessing, threading
+import multiprocessing, threading, hashlib
 from .state import StateClient
 from .message import MessageClient
 import concurrent_modular_agent as cma
@@ -14,6 +14,23 @@ class AgentInterface:
         self.module_name = module_name
         self.state = StateClient(agent_name, module_name)
         self.message = MessageClient(agent_name, module_name)
+
+        # Generate a color based on agent name and module name
+        seed = hashlib.md5(f"{self.agent_name}{self.module_name}".encode()).digest()
+        r, g, b = seed[0], seed[1], seed[2]
+        self.log_color_code = f"\033[38;2;{r};{g};{b}m"
+        self.log_reset_code = "\033[0m"
+    @property
+    def log_icon(self) -> str:
+        """Icon used in log output. Defaults to a gear."""
+        return getattr(self, "_log_icon", "⚙️")
+
+    @log_icon.setter
+    def log_icon(self, value: str):
+        self._log_icon = value if value is not None else "⚙️"
+
+    def log(self, message: str):
+        print(f'{self.log_icon} {self.log_color_code}[{self.agent_name}:{self.module_name}]{self.log_reset_code} {message}', flush=True)
 
 
 """
