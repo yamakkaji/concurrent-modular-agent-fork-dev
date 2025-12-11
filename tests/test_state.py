@@ -1,7 +1,6 @@
 from concurrent_modular_agent import StateClient
 from concurrent_modular_agent.state import State
 import numpy as np
-import pytest
 
 def test_state_metadata():
     state = StateClient("test_agent")
