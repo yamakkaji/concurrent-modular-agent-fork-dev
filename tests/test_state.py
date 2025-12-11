@@ -121,7 +121,7 @@ def test_state_6():
 #     state = StateClient("test_agent")
 #     state.clear()
 #     new_states = []
-#     N = 10000
+#     N = 1000
 #     for i in range(N):
 #         print(i)
 #         new_states.append(f"state {i}")
@@ -171,3 +171,16 @@ def test_state_delete_single():
     assert "state 2" not in texts_after
     assert "state 1" in texts_after
     assert "state 3" in texts_after
+
+def test_none_embedder():
+    state = StateClient("test_agent_none", embedder="none")
+    state.clear()
+    state.add("state 1", metadata={"tag": "tag1"})
+    state.add("state 2", metadata={"tag": "tag1"})
+    state.add("state 3", metadata={"tag": "tag2"})
+    s = state.get(metadata={"tag": "tag1"})
+    assert len(s) == 2
+    assert s[0].metadata["tag"] == "tag1"
+    assert s[0].text == "state 2"
+    assert s[1].metadata["tag"] == "tag1"
+    assert s[1].text == "state 1"
