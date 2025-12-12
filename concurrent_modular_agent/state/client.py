@@ -82,11 +82,41 @@ class StateClient():
 
     def get(self, max_count:int=None, metadata:dict=None, reverse:bool=False):
         if metadata is None:
+            data = self._chromadb_collection.get(include=['metadatas'])
+        else:
+            data = self._chromadb_collection.get(include=['metadatas'], where=metadata)
+        ids = np.array(data['ids'])
+        if len(ids) == 0:
+            return State(
+                ids=[],
+                texts=[],
+                vector=[],
+                timestamps=[],
+                metadata=[]
+            )
+        timestamps = [d['timestamp'] for d in data['metadatas']]
+        ids = ids[np.argsort(timestamps, kind='stable')]
+        if not reverse:
+            ids = ids[::-1]
+        if max_count is not None and max_count > 0:
+            ids = ids[:max_count]
+        data = self._chromadb_collection.get(ids=ids.tolist(), include=['embeddings', 'documents', 'metadatas'])
+        state = self._convert_chromadb_data_to_state(data)
+        index = np.argsort(state.timestamps, kind='stable')[::-1]
+        state = state[index]
+        if reverse:
+            state = state[::-1]
+        if max_count is not None and max_count > 0:
+            state = state[:max_count]
+        return state
+
+    def get_legacy(self, max_count:int=None, metadata:dict=None, reverse:bool=False):
+        if metadata is None:
             data = self._chromadb_collection.get(include=['embeddings', 'documents', 'metadatas'])
         else:
             data = self._chromadb_collection.get(include=['embeddings', 'documents', 'metadatas'], where=metadata)
         state = self._convert_chromadb_data_to_state(data)
-        index = np.argsort(state.timestamps)[::-1]
+        index = np.argsort(state.timestamps, kind='stable')[::-1]
         state = state[index]
         if reverse:
             state = state[::-1]

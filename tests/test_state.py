@@ -117,19 +117,19 @@ def test_state_6():
     s = state.get(max_count=None)
     assert len(s) == 100
 
-# def test_state_huge_data():
-#     state = StateClient("test_agent")
-#     state.clear()
-#     new_states = []
-#     N = 1000
-#     for i in range(N):
-#         print(i)
-#         new_states.append(f"state {i}")
-#     state.add(new_states)
-#     s = state.get()
-#     assert len(s) == N
-#     s = state.get(max_count=10)
-#     assert len(s) == 10
+def test_state_huge_data():
+    state = StateClient("test_agent_none", embedder="none")
+    state.clear()
+    new_states = []
+    N = 100
+    for i in range(N):
+        new_states.append(f"state {i}")
+    state.add(new_states)
+    s = state.get()
+    assert len(s) == N
+    s = state.get(max_count=10)
+    assert len(s) == 10
+    assert s[0].text == "state 99"
 
 import datetime
 def test_state_datetime_1():
